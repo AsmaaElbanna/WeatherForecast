@@ -27,5 +27,6 @@ class MainActivity : AppCompatActivity() {
         tabLayout.getTabAt(1)!!.setIcon(R.drawable.ic_baseline_favorite_24)
         tabLayout.getTabAt(2)!!.setIcon(R.drawable.ic_baseline_add_alert_24)
         tabLayout.getTabAt(3)!!.setIcon(R.drawable.ic_baseline_settings_24)
+
     }
 }
