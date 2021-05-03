@@ -32,17 +32,20 @@ public class PagerAdapter(supportFragmentManager:FragmentManager) : FragmentPage
         return mFragmentList.size
     }
 
-    override fun getPageTitle(position: Int): CharSequence? {
-        return mFragmentTitleList[position]
-    }
+//    override fun getPageTitle(position: Int): CharSequence? {
+//        return mFragmentTitleList[position]
+//    }
 
-    fun addFragment (fragment:Fragment,title:String){
+    fun addFragment (fragment:Fragment){
         mFragmentList.add(fragment)
-        mFragmentTitleList.add(title)
+       // mFragmentTitleList.add(title)
     }
 
 
-
+//    fun addFragment (fragment:Fragment,title:String){
+//        mFragmentList.add(fragment)
+//        // mFragmentTitleList.add(title)
+//    }
 
 
 
