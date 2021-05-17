@@ -35,7 +35,10 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 >
-
+<RadioGroup
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -45,6 +48,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/gps_radioBtn" />
+</RadioGroup>
             </LinearLayout>
 
         </LinearLayout>
@@ -68,7 +72,10 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 >
-
+<RadioGroup
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -83,6 +90,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/temp_fahrenheit_radioBtn" />
+            </RadioGroup>
             </LinearLayout>
 
             <TextView
@@ -98,7 +106,10 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 >
-
+<RadioGroup
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -108,6 +119,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/mile_radioBtn" />
+</RadioGroup>
             </LinearLayout>
 
         </LinearLayout>
@@ -131,6 +143,10 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 >
+<RadioGroup
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
 
                 <RadioButton
                     android:layout_width="wrap_content"
@@ -141,6 +157,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/english_radioBtn" />
+</RadioGroup>
             </LinearLayout>
 
         </LinearLayout>
