@@ -1,4 +1,4 @@
-package com.happycomp.weatherforecast.fragments
+package com.happycomp.weatherforecast.model.adapters
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

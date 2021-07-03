@@ -1,4 +1,4 @@
-package com.happycomp.weatherforecast
+package com.happycomp.weatherforecast.model.adapters
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -6,7 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.happycomp.weatherforecast.fragments.FavoriteFragment
+import com.happycomp.weatherforecast.R
+import com.happycomp.weatherforecast.view.fragment.FavoriteFragment
 
 class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.MyHolder>(){
 
@@ -15,13 +16,13 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.MyHolder>(){
     private val status = arrayOf("snow","cloudy","rain")
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteAdapter.MyHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyHolder {
         val v = LayoutInflater.from(parent.context)
                 .inflate(R.layout.favorite_item, parent, false)
         return MyHolder(v)
     }
 
-    override fun onBindViewHolder(holder: FavoriteAdapter.MyHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyHolder, position: Int) {
 
         holder.countryText.text = country[position]
         holder.tempText.text = temp[position]
