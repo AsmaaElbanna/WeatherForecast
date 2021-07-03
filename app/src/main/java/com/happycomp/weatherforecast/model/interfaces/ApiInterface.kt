@@ -17,7 +17,7 @@ interface ApiInterface {
     @GET("data/2.5/onecall")
     fun getWeatherData(@Query("lat") lat: Double,
                        @Query("lon") lon: Double,
-                       @Query("exclude") exclude: String = "${Exclude.Hourly.name}, daily",
+                       @Query("exclude") exclude: String = "${Exclude.Minutely.name}, daily",
                        @Query("appid") APIKEY:String = "5d81fed7ec24e35f8359e5d0d3919b5a"
     ): Call<BaseWeather>
 }

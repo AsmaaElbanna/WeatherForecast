@@ -1,5 +1,6 @@
 package com.happycomp.weatherforecast.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.happycomp.weatherforecast.model.interfaces.ApiInterface
@@ -27,12 +28,12 @@ class HomeVM : ViewModel() {
         weatherCall.enqueue(object : Callback<BaseWeather>{
             override fun onResponse(call: Call<BaseWeather>, response: Response<BaseWeather>) {
                 weatherData.value = response.body()
-//                if(response.body() != null)
-//                    Log.i("MYDATAFROMAPI", response.body()!!.minutely.joinToString())
+                if(response.body() != null)
+                    Log.i("MYDATAFROMAPI", response.body()!!.hourly.size.toString())
             }
 
             override fun onFailure(call: Call<BaseWeather>, t: Throwable) {
-
+                Log.i("MYERRORFROMAPI", t.message.toString())
             }
         })
     }
