@@ -11,6 +11,7 @@ import com.happycomp.weatherforecast.databinding.FragmentHomeBinding
 import com.happycomp.weatherforecast.model.adapters.WeatherDaysAdapter
 import com.happycomp.weatherforecast.model.adapters.WeatherHoursAdapter
 import com.happycomp.weatherforecast.viewmodel.HomeVM
+import java.sql.Timestamp
 
 class HomeFragment : Fragment() {
 
@@ -25,11 +26,12 @@ class HomeFragment : Fragment() {
 
         homeVM = ViewModelProvider(requireActivity()).get(HomeVM::class.java)
 
-        if(homeVM.weatherData.value == null)
+        if (homeVM.weatherData.value == null)
             homeVM.getWeather()
         homeVM.weatherData.observe(viewLifecycleOwner, {
             binding.tvLocation.text = it.timezone
             binding.tvTemp.text = it.current.temp.toString()
+            binding.tvStatus.text = it.current.weather[0].description
             binding.tvCloud.text = it.current.clouds.toString()
             binding.tvHumidity.text = it.current.humidity.toString()
             binding.tvPressure.text = it.current.pressure.toString()
@@ -44,8 +46,11 @@ class HomeFragment : Fragment() {
             binding.rvDaysWeather.adapter = WeatherDaysAdapter(it.hourly)
 
 
-
         })
         return binding.root
     }
+
+//    fun convertDate(dateInMilliseconds: String, dateFormat: String?): String? {
+//        return DateFormat.format(dateFormat, dateInMilliseconds.toLong()).toString()
+//    }
 }

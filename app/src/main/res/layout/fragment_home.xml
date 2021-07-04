@@ -68,7 +68,6 @@
                     android:id="@+id/tvStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
-                    android:text="Clear Sky"
                     android:textSize="22sp"
                     app:layout_constraintEnd_toEndOf="@+id/tvTemp"
                     app:layout_constraintStart_toStartOf="@+id/tvTemp"
@@ -93,7 +92,7 @@
                 android:layout_marginTop="5dp"
                 app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
                 app:layout_constraintStart_toStartOf="@+id/constraintLayout"
-                app:layout_constraintTop_toBottomOf="@+id/textView4">
+                app:layout_constraintTop_toBottomOf="@+id/tvTime">
 
                 <View
                     android:layout_width="match_parent"
@@ -119,7 +118,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/tvTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
