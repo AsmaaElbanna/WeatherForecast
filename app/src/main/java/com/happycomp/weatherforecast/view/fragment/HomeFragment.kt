@@ -25,6 +25,10 @@ class HomeFragment : Fragment() {
         if(homeVM.weatherData.value == null)
             homeVM.getWeather()
 
+        homeVM.weatherData.observe(viewLifecycleOwner, { weatherData ->
+            binding.tvLocation.text = weatherData.timezone
+        })
+
         return binding.root
     }
 }

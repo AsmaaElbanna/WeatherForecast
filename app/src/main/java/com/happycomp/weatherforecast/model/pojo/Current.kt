@@ -11,7 +11,7 @@ data class Current (
 	@SerializedName("pressure") val pressure : Int,
 	@SerializedName("humidity") val humidity : Int,
 	@SerializedName("dew_point") val dew_point : Float,
-	@SerializedName("uvi") val uvi : Int,
+	@SerializedName("uvi") val uvi : Float,
 	@SerializedName("clouds") val clouds : Int,
 	@SerializedName("visibility") val visibility : Int,
 	@SerializedName("wind_speed") val wind_speed : Float,
