@@ -12,7 +12,6 @@ import com.happycomp.weatherforecast.model.adapters.WeatherDaysAdapter
 import com.happycomp.weatherforecast.model.adapters.WeatherHoursAdapter
 import com.happycomp.weatherforecast.viewmodel.FavoriteVM
 import com.happycomp.weatherforecast.viewmodel.HomeVM
-import java.sql.Timestamp
 
 class HomeFragment : Fragment() {
 
@@ -34,7 +33,7 @@ class HomeFragment : Fragment() {
         homeVM.weatherData.observe(viewLifecycleOwner, {
             binding.tvLocation.text = it.timezone
             binding.tvTemp.text = it.current.temp.toString()
-            binding.tvStatus.text = it.current.weather!!.first().description
+            binding.tvStatus.text = it.current.weather.first().description
             binding.tvCloud.text = it.current.clouds.toString()
             binding.tvHumidity.text = it.current.humidity.toString()
             binding.tvPressure.text = it.current.pressure.toString()
@@ -46,7 +45,7 @@ class HomeFragment : Fragment() {
 
             binding.rvDaysWeather.layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            binding.rvDaysWeather.adapter = WeatherDaysAdapter(it.daily)
+            binding.rvDaysWeather.adapter = WeatherDaysAdapter(it.daily!!)
 
             favoriteVM.addFavorite(it)
         })
