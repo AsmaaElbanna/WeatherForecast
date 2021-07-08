@@ -29,4 +29,5 @@
     <string name="country_temp">Temp</string>
     <string name="country_status">Status</string>
     <string name="title_activity_maps">Map</string>
+    <string name="notification_Channel_ID">notification_app</string>
 </resources>
