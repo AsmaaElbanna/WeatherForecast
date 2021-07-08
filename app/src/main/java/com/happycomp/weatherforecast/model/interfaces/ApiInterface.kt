@@ -8,6 +8,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 // https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&appid=5d81fed7ec24e35f8359e5d0d3919b5a
+// https://maps.googleapis.com/maps/api/geocode/json?latlng=31.0455976,30.7809564&sensor=false&key=AIzaSyCJwAX8vgHpMN1VweL7A7WUpHg-QonHhq0
 
 // https://api.openweathermap.org/data/2.5/onecall?
 // lat=33.44&
