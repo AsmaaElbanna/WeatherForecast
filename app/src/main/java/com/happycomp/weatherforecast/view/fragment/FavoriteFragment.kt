@@ -1,11 +1,15 @@
 package com.happycomp.weatherforecast.view.fragment
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -21,7 +25,18 @@ class FavoriteFragment : Fragment(), SwipeListener {
     private lateinit var favoriteVM: FavoriteVM
     private lateinit var favoriteAdapter: FavoriteAdapter
 
-    private lateinit var mapsResult: ActivityResultLauncher<Intent>
+    //private lateinit var mapsResult: ActivityResultLauncher<Intent>
+
+    val resultContractMap = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+        if (it.resultCode == Activity.RESULT_OK){
+            val intent = it.data
+            if (intent !=null){
+                var lat = intent.getDoubleExtra("Lat",0.0)
+                Toast.makeText(requireContext(), ""+lat, Toast.LENGTH_SHORT).show()
+
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +58,9 @@ class FavoriteFragment : Fragment(), SwipeListener {
 
         binding.fabAdd.setOnClickListener {
             val intent = Intent(activity, MapsActivity::class.java)
-            startActivity(intent)
+//            startActivity(intent)
+            resultContractMap.launch(intent)
+
         }
 
         return binding.root
@@ -52,4 +69,5 @@ class FavoriteFragment : Fragment(), SwipeListener {
     override fun onItemSwipeToDelete(position: Int) {
         favoriteVM.deleteFavorite(favoriteAdapter.favoriteAt(position))
     }
+
 }
