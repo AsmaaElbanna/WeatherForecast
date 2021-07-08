@@ -5,11 +5,10 @@ import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-@Entity(tableName = "favorites")
+@Entity(tableName = "favorites", primaryKeys = ["lat", "lon"])
 data class BaseWeather(
     @SerializedName("lat") val lat: Double,
     @SerializedName("lon") val lon: Double,
-    @PrimaryKey
     @SerializedName("timezone") val timezone: String,
     @SerializedName("timezone_offset") val timezone_offset: Int,
     @SerializedName("current") val current: Current

@@ -10,6 +10,9 @@ interface FavoritesDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addFavorite(baseWeather: BaseWeather)
 
+    @Delete
+    suspend fun deleteFavorite(baseWeather: BaseWeather)
+
     @Transaction
     @Query("SELECT * FROM favorites")
     fun getAllFavorites(): LiveData<List<BaseWeather>>

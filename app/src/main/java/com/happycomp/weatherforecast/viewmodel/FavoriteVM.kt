@@ -9,7 +9,7 @@ import com.happycomp.weatherforecast.model.room.WeatherDataBase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class FavoriteVM(application: Application): AndroidViewModel(application) {
+class FavoriteVM(application: Application) : AndroidViewModel(application) {
     private val favoritesDao = WeatherDataBase.getDatabase(application).favoritesDao
 
     lateinit var favorites: LiveData<List<BaseWeather>>
@@ -20,9 +20,15 @@ class FavoriteVM(application: Application): AndroidViewModel(application) {
         }
     }
 
-    fun addFavorite(baseWeather: BaseWeather){
+    fun addFavorite(baseWeather: BaseWeather) {
         viewModelScope.launch {
             favoritesDao.addFavorite(baseWeather)
+        }
+    }
+
+    fun deleteFavorite(baseWeather: BaseWeather) {
+        viewModelScope.launch {
+            favoritesDao.deleteFavorite(baseWeather)
         }
     }
 }

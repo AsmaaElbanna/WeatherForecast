@@ -23,7 +23,7 @@ class HomeVM : ViewModel() {
 
     fun getWeather() {
         GlobalScope.launch(Dispatchers.IO) {
-            val response = apiInterface.getWeatherData(33.44, -94.04, units = Units.metric.name)
+            val response = apiInterface.getWeatherData(31.0455976,30.7809564, units = Units.metric.name)
             if (response.isSuccessful) {
                 GlobalScope.launch(Dispatchers.Main) {
                     weatherData.value = response.body()
