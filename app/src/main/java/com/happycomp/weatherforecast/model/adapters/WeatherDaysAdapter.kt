@@ -22,8 +22,6 @@ class WeatherDaysAdapter(private var dailyList: List<Hourly>) : RecyclerView.Ada
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = dailyList[position]
         holder.tvTemp.text = currentItem.temp.toString()
-
-
     }
 
     override fun getItemCount(): Int {

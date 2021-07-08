@@ -20,7 +20,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/country_fav"
+                android:id="@+id/tvCountry"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
@@ -33,14 +33,14 @@
                 android:weightSum="2">
 
                 <TextView
-                    android:id="@+id/temp_fav"
+                    android:id="@+id/tvTemperature"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:text="@string/country_temp" />
 
                 <TextView
-                    android:id="@+id/status_fav"
+                    android:id="@+id/tvFavStatus"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"

@@ -1,5 +1,6 @@
 package com.happycomp.weatherforecast.model.pojo
 
+import androidx.room.Ignore
 import com.google.gson.annotations.SerializedName
 
 data class Current(

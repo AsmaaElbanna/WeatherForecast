@@ -1,40 +1,34 @@
 package com.happycomp.weatherforecast.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.happycomp.weatherforecast.model.enums.Units
 import com.happycomp.weatherforecast.model.interfaces.ApiInterface
 import com.happycomp.weatherforecast.model.pojo.BaseWeather
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class HomeVM : ViewModel() {
-    private val retrofit: Retrofit =
+    private val apiInterface: ApiInterface =
         Retrofit.Builder()
             .baseUrl("https://api.openweathermap.org/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-
-    private val apiInterface: ApiInterface = retrofit.create(ApiInterface::class.java)
+            .create(ApiInterface::class.java)
 
     var weatherData = MutableLiveData<BaseWeather>()
 
-    fun getWeather(){
-        val weatherCall: Call<BaseWeather> = apiInterface.getWeatherData(33.44, -94.04)
-
-        weatherCall.enqueue(object : Callback<BaseWeather>{
-            override fun onResponse(call: Call<BaseWeather>, response: Response<BaseWeather>) {
-                weatherData.value = response.body()
-                if(response.body() != null)
-                    Log.i("MYDATAFROMAPI", response.body()!!.hourly.size.toString())
+    fun getWeather() {
+        GlobalScope.launch(Dispatchers.IO) {
+            val response = apiInterface.getWeatherData(33.44, -94.04, units = Units.metric.name)
+            if (response.isSuccessful) {
+                GlobalScope.launch(Dispatchers.Main) {
+                    weatherData.value = response.body()
+                }
             }
-
-            override fun onFailure(call: Call<BaseWeather>, t: Throwable) {
-                Log.i("MYERRORFROMAPI", t.message.toString())
-            }
-        })
+        }
     }
 }
