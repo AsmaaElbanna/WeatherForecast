@@ -8,6 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.happycomp.weatherforecast.R
 import com.happycomp.weatherforecast.model.pojo.Hourly
+import java.sql.Date
+import java.sql.Timestamp
 
 class WeatherHoursAdapter(private var hoursList: List<Hourly>) : RecyclerView.Adapter<WeatherHoursAdapter.ViewHolder>() {
 
@@ -19,7 +21,14 @@ class WeatherHoursAdapter(private var hoursList: List<Hourly>) : RecyclerView.Ad
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
       val currentItem =hoursList[position]
+        //view temp
         holder.tvTemp.text = currentItem.temp.toString()
+
+        // view date
+        val stamp = Timestamp(currentItem.dt.toLong()*1000)
+        val date = Date(stamp.getTime())
+        holder.tvHour.text = date.toString()
+
 
 
     }
@@ -28,6 +37,8 @@ class WeatherHoursAdapter(private var hoursList: List<Hourly>) : RecyclerView.Ad
         return hoursList.size
 
     }
+
+
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         var img:ImageView

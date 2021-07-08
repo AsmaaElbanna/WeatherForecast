@@ -46,7 +46,7 @@ class HomeFragment : Fragment() {
 
             binding.rvDaysWeather.layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            binding.rvDaysWeather.adapter = WeatherDaysAdapter(it.hourly)
+            binding.rvDaysWeather.adapter = WeatherDaysAdapter(it.daily)
 
             favoriteVM.addFavorite(it)
         })

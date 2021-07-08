@@ -2,6 +2,8 @@ package com.happycomp.weatherforecast.view.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -14,6 +16,8 @@ import com.happycomp.weatherforecast.R
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
+    var lat:Double = 0.0
+    var long :Double =0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,9 +40,23 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
+        mMap.setOnMapClickListener { point ->
+            lat = point.latitude
+            long = point.longitude
+            Toast.makeText(
+                    this,
+                    point.latitude.toString() + ", " + point.longitude,
+                    Toast.LENGTH_SHORT
+            ).show()
+            Log.i("TAG", "onMapReady: " +lat+"      "+ long)
+        }
+
+
         // Add a marker in Sydney and move the camera
         val sydney = LatLng(-34.0, 151.0)
         mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+
+
     }
 }
