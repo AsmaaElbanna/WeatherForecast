@@ -7,8 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -25,23 +23,31 @@ class FavoriteFragment : Fragment(), SwipeListener {
     private lateinit var favoriteVM: FavoriteVM
     private lateinit var favoriteAdapter: FavoriteAdapter
 
-    //private lateinit var mapsResult: ActivityResultLauncher<Intent>
-
-    val resultContractMap = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-        if (it.resultCode == Activity.RESULT_OK){
-            val intent = it.data
-            if (intent !=null){
-                var lat = intent.getDoubleExtra("Lat",0.0)
-                Toast.makeText(requireContext(), ""+lat, Toast.LENGTH_SHORT).show()
-
+    private val resultContractMap =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                val intent = it.data
+                if (intent != null) {
+                    val lat = intent.getDoubleExtra(MapsActivity.LATITUDE, -1.0)
+                    val long = intent.getDoubleExtra(MapsActivity.LONGITUDE, -1.0)
+                    if (lat != -1.0 || long != -1.0) {
+                        Toast.makeText(requireContext(), "$lat, $long", Toast.LENGTH_SHORT).show()
+                        favoriteAdapter.currentList.find { favorite ->
+                            favorite.lat == lat && favorite.lon == long
+                        }.also { result ->
+                            if(result != null){
+                                Toast.makeText(requireContext(), "Here!", Toast.LENGTH_SHORT).show()
+                            } else{
+                                favoriteVM.addNewFavorite(lat, long)
+                            }
+                        }
+                    }
+                    else{
+                        Toast.makeText(requireContext(), "You Didn't Select Location!", Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
         }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,9 +64,7 @@ class FavoriteFragment : Fragment(), SwipeListener {
 
         binding.fabAdd.setOnClickListener {
             val intent = Intent(activity, MapsActivity::class.java)
-//            startActivity(intent)
             resultContractMap.launch(intent)
-
         }
 
         return binding.root

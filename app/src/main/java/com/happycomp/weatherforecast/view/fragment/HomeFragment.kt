@@ -10,14 +10,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.happycomp.weatherforecast.databinding.FragmentHomeBinding
 import com.happycomp.weatherforecast.model.adapters.WeatherDaysAdapter
 import com.happycomp.weatherforecast.model.adapters.WeatherHoursAdapter
-import com.happycomp.weatherforecast.viewmodel.FavoriteVM
 import com.happycomp.weatherforecast.viewmodel.HomeVM
 
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var homeVM: HomeVM
-    private lateinit var favoriteVM: FavoriteVM
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,7 +24,6 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         homeVM = ViewModelProvider(requireActivity()).get(HomeVM::class.java)
-        favoriteVM = ViewModelProvider(requireActivity()).get(FavoriteVM::class.java)
 
         if (homeVM.weatherData.value == null)
             homeVM.getWeather()
@@ -46,8 +43,6 @@ class HomeFragment : Fragment() {
             binding.rvDaysWeather.layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             binding.rvDaysWeather.adapter = WeatherDaysAdapter(it.daily!!)
-
-            favoriteVM.addFavorite(it)
         })
         return binding.root
     }
