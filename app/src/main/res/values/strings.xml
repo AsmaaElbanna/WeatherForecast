@@ -26,7 +26,7 @@
     <string name="arabic_radioBtn">Arabic</string>
     <string name="english_radioBtn">English</string>
     <string name="Country_name">Country</string>
-    <string name="country_temp">Temp</string>
+    <string name="country_temp">%s\u00BA</string>
     <string name="country_status">Status</string>
     <string name="title_activity_maps">Map</string>
     <string name="notification_Channel_ID">notification_app</string>

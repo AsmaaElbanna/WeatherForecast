@@ -1,4 +1,4 @@
- package com.happycomp.weatherforecast.model.adapters
+package com.happycomp.weatherforecast.model.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -11,24 +11,20 @@ import com.happycomp.weatherforecast.model.pojo.BaseWeather
 class FavoriteAdapter :
     ListAdapter<BaseWeather, FavoriteAdapter.BaseWeatherViewHolder>(diffCallback) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseWeatherViewHolder {
-        return BaseWeatherViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseWeatherViewHolder =
+        BaseWeatherViewHolder(
             FavoriteItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
-    }
 
     override fun onBindViewHolder(holder: BaseWeatherViewHolder, position: Int) =
         holder.bind(getItem(position))
 
-    fun favoriteAt(position: Int): BaseWeather{
-        return getItem(position)
-    }
+    fun favoriteAt(position: Int): BaseWeather = getItem(position)
 
     inner class BaseWeatherViewHolder(private val binding: FavoriteItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(favorite: BaseWeather) {
-            binding.tvCountry.text = favorite.timezone
-            binding.tvFavStatus.text = favorite.current.weather.first().description
+            binding.favorite = favorite
         }
     }
 

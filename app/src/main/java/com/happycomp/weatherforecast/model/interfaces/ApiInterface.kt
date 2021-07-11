@@ -1,5 +1,6 @@
 package com.happycomp.weatherforecast.model.interfaces
 
+import com.happycomp.weatherforecast.BuildConfig
 import com.happycomp.weatherforecast.model.pojo.BaseWeather
 import retrofit2.Response
 import retrofit2.http.GET
@@ -29,6 +30,6 @@ interface ApiInterface {
         @Query("lon") lon: Double,
         @Query("exclude") exclude: String = "minutely",
         @Query("units") units: String = "standard",
-        @Query("appid") APIKEY: String = "5d81fed7ec24e35f8359e5d0d3919b5a"
+        @Query("appid") APIKEY: String = BuildConfig.WEATHER_KEY
     ): Response<BaseWeather>
 }
