@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "com.happycomp.weatherforecast"
-        minSdkVersion 21
+        minSdkVersion 24
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -93,4 +93,8 @@ dependencies {
     // Dagger
     implementation 'com.google.dagger:dagger:2.37'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.37'
+
+    //notification
+    implementation 'io.karn:notify:1.3.0'
+
 }
