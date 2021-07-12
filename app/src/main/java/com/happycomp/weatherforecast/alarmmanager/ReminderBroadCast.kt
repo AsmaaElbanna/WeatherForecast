@@ -20,7 +20,7 @@ class ReminderBroadCast : BroadcastReceiver() {
 //        notificationManager.notify(200,builder.build());
 
         val notifications = Notifications(context)
-        notifications.createNotificationChannelID(context!!.resources.getString(R.string.notification_Channel_ID),
+        notifications.createNotificationChannelID(context.resources.getString(R.string.notification_Channel_ID),
                 "get up y user ", "hhhhhhhhhhhhhhhhhhhhhhhhh")
         notifications.displayNotification("The weather is good")
 

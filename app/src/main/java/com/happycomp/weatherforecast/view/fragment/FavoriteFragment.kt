@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.happycomp.weatherforecast.databinding.FragmentFavoriteBinding
 import com.happycomp.weatherforecast.model.adapters.FavoriteAdapter
@@ -17,11 +17,15 @@ import com.happycomp.weatherforecast.model.adapters.SwipeToDelete
 import com.happycomp.weatherforecast.model.interfaces.SwipeListener
 import com.happycomp.weatherforecast.view.activity.MapsActivity
 import com.happycomp.weatherforecast.viewmodel.FavoriteVM
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class FavoriteFragment : Fragment(), SwipeListener {
     private lateinit var binding: FragmentFavoriteBinding
-    private lateinit var favoriteVM: FavoriteVM
-    private lateinit var favoriteAdapter: FavoriteAdapter
+    private val favoriteVM: FavoriteVM by viewModels()
+    @Inject
+    lateinit var favoriteAdapter: FavoriteAdapter
 
     private val resultContractMap =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -54,8 +58,7 @@ class FavoriteFragment : Fragment(), SwipeListener {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentFavoriteBinding.inflate(inflater, container, false)
-        favoriteVM = ViewModelProvider(requireActivity()).get(FavoriteVM::class.java)
-        binding.recyclerViewFav.adapter = FavoriteAdapter().also { this.favoriteAdapter = it }
+        binding.recyclerViewFav.adapter = favoriteAdapter
         ItemTouchHelper(SwipeToDelete(this)).attachToRecyclerView(binding.recyclerViewFav)
 
         favoriteVM.favorites.observe(viewLifecycleOwner, {

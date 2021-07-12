@@ -3,27 +3,22 @@ package com.happycomp.weatherforecast.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.happycomp.weatherforecast.model.enums.Units
-import com.happycomp.weatherforecast.model.interfaces.ApiInterface
 import com.happycomp.weatherforecast.model.pojo.BaseWeather
+import com.happycomp.weatherforecast.model.retrofit.WeatherInterface
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 
-class HomeVM : ViewModel() {
-    private val apiInterface: ApiInterface =
-        Retrofit.Builder()
-            .baseUrl("https://api.openweathermap.org/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(ApiInterface::class.java)
-
+@HiltViewModel
+class HomeVM @Inject constructor(private val weatherInterface: WeatherInterface) : ViewModel() {
     var weatherData = MutableLiveData<BaseWeather>()
 
     fun getWeather() {
         GlobalScope.launch(Dispatchers.IO) {
-            val response = apiInterface.getWeatherData(31.0455976,30.7809564, units = Units.metric.name)
+            val response =
+                weatherInterface.getWeatherData(31.2242387,29.8848462, units = Units.metric.name)
             if (response.isSuccessful) {
                 GlobalScope.launch(Dispatchers.Main) {
                     weatherData.value = response.body()

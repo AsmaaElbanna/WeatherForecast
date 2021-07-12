@@ -7,8 +7,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.happycomp.weatherforecast.databinding.FavoriteItemBinding
 import com.happycomp.weatherforecast.model.pojo.BaseWeather
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class FavoriteAdapter :
+@Singleton
+class FavoriteAdapter @Inject constructor() :
     ListAdapter<BaseWeather, FavoriteAdapter.BaseWeatherViewHolder>(diffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseWeatherViewHolder =

@@ -1,19 +1,13 @@
 package com.happycomp.weatherforecast.view.fragment
 
-import android.app.*
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.happycomp.weatherforecast.alarmmanager.ReminderBroadCast
 import com.happycomp.weatherforecast.databinding.FragmentAlertBinding
-import com.happycomp.weatherforecast.service.AlarmService
 import com.happycomp.weatherforecast.view.activity.SetAlarmActivity
-import java.util.*
 
 class AlertFragment : Fragment() {
     private lateinit var binding: FragmentAlertBinding
