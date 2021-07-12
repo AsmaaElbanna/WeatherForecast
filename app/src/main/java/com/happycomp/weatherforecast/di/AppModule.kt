@@ -3,6 +3,7 @@ package com.happycomp.weatherforecast.di
 import android.content.Context
 import androidx.room.Room
 import com.happycomp.weatherforecast.model.retrofit.WeatherInterface
+import com.happycomp.weatherforecast.model.room.AlarmDao
 import com.happycomp.weatherforecast.model.room.FavoritesDao
 import com.happycomp.weatherforecast.model.room.WeatherDataBase
 import com.happycomp.weatherforecast.util.Constants
@@ -27,6 +28,10 @@ object AppModule {
     @Provides
     @Singleton
     fun provideFavoriteDao(weatherDataBase: WeatherDataBase): FavoritesDao = weatherDataBase.favoritesDao
+
+    @Provides
+    @Singleton
+    fun provideAlarmDao(weatherDataBase: WeatherDataBase): AlarmDao = weatherDataBase.alarmDao
 
     @Provides
     @Singleton

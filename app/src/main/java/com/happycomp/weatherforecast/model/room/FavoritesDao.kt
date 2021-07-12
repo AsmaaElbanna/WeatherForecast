@@ -7,7 +7,7 @@ import com.happycomp.weatherforecast.model.pojo.BaseWeather
 @Dao
 interface FavoritesDao {
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addFavorite(baseWeather: BaseWeather)
 
     @Delete
@@ -15,5 +15,5 @@ interface FavoritesDao {
 
     @Transaction
     @Query("SELECT * FROM favorites")
-    fun getAllFavorites(): LiveData<List<BaseWeather>>
+    fun observeAllFavorites(): LiveData<List<BaseWeather>>
 }

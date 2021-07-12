@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.happycomp.weatherforecast.databinding.FavoriteItemBinding
+import com.happycomp.weatherforecast.databinding.ItemFavoriteBinding
 import com.happycomp.weatherforecast.model.pojo.BaseWeather
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -16,7 +16,7 @@ class FavoriteAdapter @Inject constructor() :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseWeatherViewHolder =
         BaseWeatherViewHolder(
-            FavoriteItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemFavoriteBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
 
     override fun onBindViewHolder(holder: BaseWeatherViewHolder, position: Int) =
@@ -24,7 +24,7 @@ class FavoriteAdapter @Inject constructor() :
 
     fun favoriteAt(position: Int): BaseWeather = getItem(position)
 
-    inner class BaseWeatherViewHolder(private val binding: FavoriteItemBinding) :
+    inner class BaseWeatherViewHolder(private val binding: ItemFavoriteBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(favorite: BaseWeather) {
             binding.favorite = favorite

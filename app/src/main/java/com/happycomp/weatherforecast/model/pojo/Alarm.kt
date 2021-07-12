@@ -1,8 +1,14 @@
 package com.happycomp.weatherforecast.model.pojo
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
 data class Alarm(
-    var isSound: Boolean,
-    var time: String,
-    var type: String,
-    var desc: String
+    val isSound: Boolean,
+    val time: String,
+    @PrimaryKey(autoGenerate = false)
+    val timeMS: Long,
+    val type: String,
+    val desc: String
 )

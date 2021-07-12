@@ -13,7 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.happycomp.weatherforecast.databinding.FragmentFavoriteBinding
 import com.happycomp.weatherforecast.model.adapters.FavoriteAdapter
-import com.happycomp.weatherforecast.model.adapters.SwipeToDelete
+import com.happycomp.weatherforecast.model.adapters.helpers.SwipeToDelete
 import com.happycomp.weatherforecast.model.interfaces.SwipeListener
 import com.happycomp.weatherforecast.view.activity.MapsActivity
 import com.happycomp.weatherforecast.viewmodel.FavoriteVM

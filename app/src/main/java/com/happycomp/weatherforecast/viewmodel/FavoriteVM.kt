@@ -19,7 +19,7 @@ class FavoriteVM @Inject constructor(
     private val favoritesDao: FavoritesDao
 ) : ViewModel() {
 
-    val favorites: LiveData<List<BaseWeather>> = favoritesDao.getAllFavorites()
+    val favorites: LiveData<List<BaseWeather>> = favoritesDao.observeAllFavorites()
 
     fun addNewFavorite(lat: Double, long: Double) {
         GlobalScope.launch(Dispatchers.IO) {
@@ -38,10 +38,10 @@ class FavoriteVM @Inject constructor(
         }
     }
 
-    private fun addFavorite(baseWeather: BaseWeather) {
-        viewModelScope.launch {
+    private suspend fun addFavorite(baseWeather: BaseWeather) {
+        //viewModelScope.launch {
             favoritesDao.addFavorite(baseWeather)
-        }
+        //}
     }
 
     fun deleteFavorite(baseWeather: BaseWeather) {

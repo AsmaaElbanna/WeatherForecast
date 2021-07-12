@@ -6,44 +6,45 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.happycomp.weatherforecast.databinding.FragmentAlertBinding
-import com.happycomp.weatherforecast.view.activity.SetAlarmActivity
+import com.happycomp.weatherforecast.model.adapters.AlarmAdapter
+import com.happycomp.weatherforecast.model.interfaces.SwipeListener
+import com.happycomp.weatherforecast.model.pojo.Alarm
+import com.happycomp.weatherforecast.view.activity.AlarmActivity
+import com.happycomp.weatherforecast.viewmodel.AlarmVM
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class AlertFragment : Fragment() {
+@AndroidEntryPoint
+class AlertFragment : Fragment(), SwipeListener {
     private lateinit var binding: FragmentAlertBinding
 
+    private val alarmVM: AlarmVM by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+    @Inject
+    lateinit var alarmAdapter: AlarmAdapter
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? {
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentAlertBinding.inflate(inflater, container, false)
-//       // binding.button.setOnClickListener(View.OnClickListener {
-//            Toast.makeText(context, "Reminder set", Toast.LENGTH_SHORT).show()
-//            val intent = Intent(context, ReminderBroadCast::class.java)
-//            val pendingIntent = PendingIntent.getBroadcast(context,
-//                0, intent, 0)
-//           val alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-//            val timeAtButtonClicked = System.currentTimeMillis()
-//            val thirtySecInMillis = (1000 * 10).toLong()
-//
-//            alarmManager[AlarmManager.RTC_WAKEUP, timeAtButtonClicked + thirtySecInMillis] =
-//                pendingIntent
-//        })
+        binding.rvAlarms.adapter = alarmAdapter
 
-       binding.setAlarm.setOnClickListener{
-           val intent =Intent(activity,SetAlarmActivity::class.java)
-           startActivity(intent)
-       }
+        binding.setAlarm.setOnClickListener {
+            val intent = Intent(activity, AlarmActivity::class.java)
+            startActivity(intent)
+        }
+
+        alarmVM.alarms.observe(viewLifecycleOwner, {
+            alarmAdapter.submitList(it as ArrayList<Alarm>)
+        })
 
         return binding.root
     }
 
-
-
+    override fun onItemSwipeToDelete(position: Int) {
+        alarmVM.deleteAlarm(alarmAdapter.alarmAt(position))
+    }
 }

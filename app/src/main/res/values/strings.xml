@@ -31,8 +31,28 @@
     <string name="title_activity_maps">Map</string>
     <string name="notification_Channel_ID">notification_app</string>
     <string name="Confirm">Confirm</string>
-    <string name="cloud">Cloud</string>
     <string name="humidity">Humidity</string>
-    <string name="wind">Wind</string>
     <string name="pressure">Pressure</string>
+
+    <string name="rain">Rain</string>
+    <string name="snow">Snow</string>
+    <string name="cloud">Cloud</string>
+    <string name="wind">Wind</string>
+    <string name="thunder_storm">Thunder storm</string>
+    <string name="mist_fog">Mist / Fog</string>
+    <string name="my_trip_day">My trip day</string>
+    <string name="description">Description</string>
+    <string name="select_time">Please Select Time</string>
+    <string name="set_alarm">Set alarm</string>
+    <string name="off">Off</string>
+    <string name="on">On</string>
+
+    <string-array name="alarm_type">
+        <item>@string/rain</item>
+        <item>@string/snow</item>
+        <item>@string/cloud</item>
+        <item>@string/wind</item>
+        <item>@string/thunder_storm</item>
+        <item>@string/mist_fog</item>
+    </string-array>
 </resources>

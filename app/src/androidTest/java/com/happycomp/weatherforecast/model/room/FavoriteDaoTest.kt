@@ -9,7 +9,6 @@ import com.happycomp.weatherforecast.extra.getOrAwaitValue
 import com.happycomp.weatherforecast.model.pojo.BaseWeather
 import com.happycomp.weatherforecast.model.pojo.Current
 import com.happycomp.weatherforecast.model.pojo.Weather
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
@@ -82,7 +81,7 @@ class FavoriteDaoTest {
     fun addFavorite() = runBlocking {
         dao.addFavorite(fakeFavorites.first())
 
-        val allFavorites = dao.getAllFavorites().getOrAwaitValue()
+        val allFavorites = dao.observeAllFavorites().getOrAwaitValue()
 
         assert(allFavorites.contains(fakeFavorites.first()))
     }
@@ -93,7 +92,7 @@ class FavoriteDaoTest {
         dao.addFavorite(fakeFavorites.last())
         dao.deleteFavorite(fakeFavorites.last())
 
-        val allFavorites = dao.getAllFavorites().getOrAwaitValue()
+        val allFavorites = dao.observeAllFavorites().getOrAwaitValue()
         assert(!allFavorites.contains(fakeFavorites.last()))
         assert(allFavorites.count() == 1)
     }

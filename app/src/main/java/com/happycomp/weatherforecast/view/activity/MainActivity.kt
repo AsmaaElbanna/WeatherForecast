@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.android.material.tabs.TabLayoutMediator
 import com.happycomp.weatherforecast.R
-import com.happycomp.weatherforecast.model.adapters.PagerAdapter
+import com.happycomp.weatherforecast.model.adapters.helpers.PagerAdapter
 import com.happycomp.weatherforecast.databinding.ActivityMainBinding
 import com.happycomp.weatherforecast.view.fragment.*
 import com.happycomp.weatherforecast.view.fragment.HomeFragment
