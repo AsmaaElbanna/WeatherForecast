@@ -1,38 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".view.activity.SetAlarmActivity">
-    <Button
-        android:id="@+id/set_exact_alarm"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:id="@+id/alarmSoundContainer"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Set exact alarm"
-        android:textAllCaps="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-    <Button
-        android:id="@+id/set_repetitive"
-        android:layout_width="0dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Alarm sound"/>
+        <RadioGroup
+            android:id="@+id/rgAlarmSound"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/rbNotification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Notification"/>
+            <RadioButton
+                android:id="@+id/rbAlarm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Alarm"/>
+        </RadioGroup>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Set Repetitive"
-        android:textAllCaps="false"
-        app:layout_constraintTop_toBottomOf="@+id/set_exact_alarm"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-    <Button
-        android:id="@+id/cancel_alarm"
-        android:layout_width="0dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Date and time"/>
+        <Button
+            android:id="@+id/set_exact_alarm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Set exact alarm" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/typeContainer"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Cancel"
-        android:textAllCaps="false"
-        app:layout_constraintTop_toBottomOf="@+id/set_repetitive"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Type"/>
+        <RadioGroup
+            android:id="@+id/rgType"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <RadioButton
+                android:id="@+id/rbRain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rain"/>
+            <RadioButton
+                android:id="@+id/rbSnow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Snow"/>
+            <RadioButton
+                android:id="@+id/rbCloud"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cloud"/>
+            <RadioButton
+                android:id="@+id/rbWind"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Wind"/>
+            <RadioButton
+                android:id="@+id/rbThunder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thunder storm"/>
+            <RadioButton
+                android:id="@+id/rbMistOrFogRB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mist / Fog"/>
+        </RadioGroup>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Description"/>
+        <EditText
+            android:id="@+id/descET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="My trip day"/>
+    </LinearLayout>
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save"/>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+   
+</LinearLayout>
