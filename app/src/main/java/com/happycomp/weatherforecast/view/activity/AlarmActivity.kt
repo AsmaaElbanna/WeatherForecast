@@ -10,8 +10,8 @@ import com.happycomp.weatherforecast.R
 import com.happycomp.weatherforecast.databinding.ActivityAlarmBinding
 import com.happycomp.weatherforecast.model.enums.AlarmType
 import com.happycomp.weatherforecast.model.pojo.Alarm
-import com.happycomp.weatherforecast.reciever.AlarmReciever
-import com.happycomp.weatherforecast.service.AlarmService
+import com.happycomp.weatherforecast.alarmmanager.reciever.AlarmReciever
+import com.happycomp.weatherforecast.alarmmanager.service.AlarmService
 import com.happycomp.weatherforecast.viewmodel.AlarmVM
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*

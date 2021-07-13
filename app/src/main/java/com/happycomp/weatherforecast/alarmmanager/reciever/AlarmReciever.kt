@@ -1,10 +1,10 @@
-package com.happycomp.weatherforecast.reciever
+package com.happycomp.weatherforecast.alarmmanager.reciever
 
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.text.format.DateFormat
-import com.happycomp.weatherforecast.service.AlarmService
+import com.happycomp.weatherforecast.alarmmanager.service.AlarmService
 import com.happycomp.weatherforecast.util.Constants
 import io.karn.notify.Notify
 import java.util.*

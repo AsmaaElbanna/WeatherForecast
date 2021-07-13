@@ -1,4 +1,4 @@
-package com.happycomp.weatherforecast.service
+package com.happycomp.weatherforecast.alarmmanager.service
 
 import android.app.AlarmManager
 import android.app.PendingIntent
@@ -6,7 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.widget.Toast
-import com.happycomp.weatherforecast.reciever.AlarmReciever
+import com.happycomp.weatherforecast.alarmmanager.reciever.AlarmReciever
 import com.happycomp.weatherforecast.util.Constants
 import com.happycomp.weatherforecast.util.RandomInUtil
 
