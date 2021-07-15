@@ -16,7 +16,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
-@ExperimentalCoroutinesApi
+
 @RunWith(AndroidJUnit4::class)
 @SmallTest
 class AlarmDaoTest {
@@ -66,7 +66,7 @@ class AlarmDaoTest {
     }
 
     @Test
-    fun insertAlarm() = runBlocking {
+    fun insertAlarm() :Unit= runBlocking {
 
         alarmDao.addAlarm(fakeDataList.first())
 
@@ -79,7 +79,8 @@ class AlarmDaoTest {
         alarmDao.addAlarm(fakeDataList[1])
         alarmDao.deleteAlarm(fakeDataList[1])
         val allAlarms = alarmDao.observeAllAlarms().getOrAwaitValue()
-        assertThat(allAlarms).doesNotContain(fakeDataList[1])
+       assertThat(allAlarms).doesNotContain(fakeDataList[1])
+        assertThat(allAlarms.count()).isEqualTo(0)
 
     }
 
@@ -90,6 +91,4 @@ class AlarmDaoTest {
         val allAlarms = alarmDao.observeAllAlarms().getOrAwaitValue()
         assertThat(allAlarms).doesNotContain(fakeDataList.last())
     }
-
-
 }

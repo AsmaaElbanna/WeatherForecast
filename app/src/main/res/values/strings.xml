@@ -46,6 +46,12 @@
     <string name="set_alarm">Set alarm</string>
     <string name="off">Off</string>
     <string name="on">On</string>
+    <string name="alarm_sound">Alarm sound</string>
+    <string name="notification">Notification</string>
+    <string name="alarm">Alarm</string>
+    <string name="set_description">Set Description</string>
+    <string name="type">Type</string>
+    <string name="set_date_and_time">Set Date and Time</string>
 
     <string-array name="alarm_type">
         <item>@string/rain</item>
