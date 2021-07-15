@@ -2,10 +2,12 @@ package com.happycomp.weatherforecast.di
 
 import android.content.Context
 import androidx.room.Room
+import com.happycomp.weatherforecast.model.interfaces.FavoriteActions
 import com.happycomp.weatherforecast.model.retrofit.WeatherInterface
-import com.happycomp.weatherforecast.model.room.AlarmDao
-import com.happycomp.weatherforecast.model.room.FavoritesDao
-import com.happycomp.weatherforecast.model.room.WeatherDataBase
+import com.happycomp.weatherforecast.model.room.data.AlarmDao
+import com.happycomp.weatherforecast.model.room.data.FavoritesDao
+import com.happycomp.weatherforecast.model.room.data.WeatherDataBase
+import com.happycomp.weatherforecast.model.room.repo.FavoriteRepo
 import com.happycomp.weatherforecast.util.Constants
 import dagger.Module
 import dagger.Provides
@@ -22,12 +24,22 @@ object AppModule {
     @Provides
     @Singleton
     fun provideDataBase(@ApplicationContext application: Context): WeatherDataBase = Room
-        .databaseBuilder(application, WeatherDataBase::class.java,
-            Constants.WEATHER_DB).fallbackToDestructiveMigration().build()
+        .databaseBuilder(
+            application, WeatherDataBase::class.java,
+            Constants.WEATHER_DB
+        ).fallbackToDestructiveMigration().build()
 
     @Provides
     @Singleton
-    fun provideFavoriteDao(weatherDataBase: WeatherDataBase): FavoritesDao = weatherDataBase.favoritesDao
+    fun provideFavoriteRepo(
+        weatherInterface: WeatherInterface,
+        favoritesDao: FavoritesDao
+    ): FavoriteActions = FavoriteRepo(weatherInterface, favoritesDao)
+
+    @Provides
+    @Singleton
+    fun provideFavoriteDao(weatherDataBase: WeatherDataBase): FavoritesDao =
+        weatherDataBase.favoritesDao
 
     @Provides
     @Singleton
@@ -36,8 +48,9 @@ object AppModule {
     @Provides
     @Singleton
     fun weatherInterface(): WeatherInterface = Retrofit.Builder()
-        .baseUrl("https://api.openweathermap.org/")
+        .baseUrl("https://api.openweathermap.org")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
         .create(WeatherInterface::class.java)
+
 }

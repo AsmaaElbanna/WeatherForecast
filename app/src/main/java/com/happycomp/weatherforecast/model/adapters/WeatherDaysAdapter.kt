@@ -11,7 +11,13 @@ import com.happycomp.weatherforecast.model.pojo.Daily
 import java.sql.Date
 import java.sql.Timestamp
 
-class WeatherDaysAdapter(private var dailyList: List<Daily>) : RecyclerView.Adapter<WeatherDaysAdapter.ViewHolder>() {
+class WeatherDaysAdapter : RecyclerView.Adapter<WeatherDaysAdapter.ViewHolder>() {
+
+    private var dailyList: List<Daily> = listOf()
+    fun setData(dailyList: List<Daily>){
+        this.dailyList = dailyList
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
        var view = LayoutInflater.from(parent.context)

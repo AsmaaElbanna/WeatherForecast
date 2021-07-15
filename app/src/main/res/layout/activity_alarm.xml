@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -24,28 +23,28 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Alarm sound" />
+                android:text="@string/alarm_sound" />
 
             <RadioGroup
                 android:id="@+id/rgAlarmSound"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:checkedButton="@id/rbNotification">
+                android:checkedButton="@id/rbNotification"
+                android:orientation="horizontal">
 
                 <RadioButton
                     android:id="@+id/rbNotification"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Notification" />
+                    android:text="@string/notification" />
 
                 <RadioButton
                     android:id="@+id/rbAlarm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Alarm"
+                    android:checked="@={alarmVM.isSound}"
 
-                    android:checked="@={alarmVM.isSound}"/>
+                    android:text="@string/alarm" />
             </RadioGroup>
         </LinearLayout>
 
@@ -57,13 +56,13 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Date and time" />
+                android:text="@string/date_and_time" />
 
             <Button
                 android:id="@+id/set_exact_alarm"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Set exact alarm" />
+                android:text="@string/set_exact_alarm" />
         </LinearLayout>
 
         <LinearLayout
@@ -75,14 +74,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Type" />
+                android:text="@string/type" />
 
             <RadioGroup
                 android:id="@+id/rgType"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:checkedButton="@id/rbRain">
+                android:checkedButton="@id/rbRain"
+                android:orientation="vertical">
 
                 <RadioButton
                     android:id="@+id/rbRain"
@@ -136,8 +135,10 @@
                 android:id="@+id/etDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@={alarmVM.desc}"
-                android:hint="@string/my_trip_day" />
+                android:hint="@string/my_trip_day"
+                android:importantForAutofill="no"
+                android:inputType="textAutoComplete"
+                android:text="@={alarmVM.desc}" />
         </LinearLayout>
 
         <Button

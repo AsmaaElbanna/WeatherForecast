@@ -9,6 +9,8 @@ import com.happycomp.weatherforecast.extra.getOrAwaitValue
 import com.happycomp.weatherforecast.model.pojo.BaseWeather
 import com.happycomp.weatherforecast.model.pojo.Current
 import com.happycomp.weatherforecast.model.pojo.Weather
+import com.happycomp.weatherforecast.model.room.data.FavoritesDao
+import com.happycomp.weatherforecast.model.room.data.WeatherDataBase
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before

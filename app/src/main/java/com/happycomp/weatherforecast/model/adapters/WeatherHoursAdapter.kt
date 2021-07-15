@@ -11,7 +11,14 @@ import com.happycomp.weatherforecast.model.pojo.Hourly
 import java.sql.Date
 import java.sql.Timestamp
 
-class WeatherHoursAdapter(private var hoursList: List<Hourly>) : RecyclerView.Adapter<WeatherHoursAdapter.ViewHolder>() {
+class WeatherHoursAdapter : RecyclerView.Adapter<WeatherHoursAdapter.ViewHolder>() {
+
+    private var hoursList: List<Hourly> = listOf()
+    fun setData(hoursList: List<Hourly>){
+        this.hoursList = hoursList
+        notifyDataSetChanged()
+    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =LayoutInflater.from(parent.context)

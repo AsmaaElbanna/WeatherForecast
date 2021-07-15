@@ -84,12 +84,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         finish()
     }
 
-    companion object {
-        private const val REQUEST_CODE = 101
-        const val LATITUDE = "LATITUDE"
-        const val LONGITUDE = "LONGITUDE"
-    }
-
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -104,5 +98,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     return
             }
         }
+    }
+
+    companion object {
+        private const val REQUEST_CODE = 101
+        const val LATITUDE = "LATITUDE"
+        const val LONGITUDE = "LONGITUDE"
     }
 }

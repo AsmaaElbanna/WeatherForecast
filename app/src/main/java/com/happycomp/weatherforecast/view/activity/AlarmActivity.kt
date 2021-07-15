@@ -30,6 +30,7 @@ class AlarmActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAlarmBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         binding.alarmVM = alarmVM
 
         alarmService = AlarmService(this)

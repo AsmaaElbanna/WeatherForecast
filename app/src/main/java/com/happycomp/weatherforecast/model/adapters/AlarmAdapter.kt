@@ -7,8 +7,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.happycomp.weatherforecast.databinding.ItemAlarmBinding
 import com.happycomp.weatherforecast.model.pojo.Alarm
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedInject
 import javax.inject.Inject
 import javax.inject.Singleton
 

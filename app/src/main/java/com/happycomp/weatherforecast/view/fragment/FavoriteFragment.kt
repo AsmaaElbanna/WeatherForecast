@@ -14,16 +14,24 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import com.happycomp.weatherforecast.databinding.FragmentFavoriteBinding
 import com.happycomp.weatherforecast.model.adapters.FavoriteAdapter
 import com.happycomp.weatherforecast.model.adapters.helpers.SwipeToDelete
+import com.happycomp.weatherforecast.model.interfaces.NetworkHandler
 import com.happycomp.weatherforecast.model.interfaces.SwipeListener
 import com.happycomp.weatherforecast.view.activity.MapsActivity
 import com.happycomp.weatherforecast.viewmodel.FavoriteVM
+import com.happycomp.weatherforecast.viewmodel.FavoriteVMFactory
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class FavoriteFragment : Fragment(), SwipeListener {
+class FavoriteFragment : Fragment(), SwipeListener, NetworkHandler {
     private lateinit var binding: FragmentFavoriteBinding
-    private val favoriteVM: FavoriteVM by viewModels()
+
+    @Inject
+    lateinit var assistedFactory: FavoriteVMFactory
+
+    private val favoriteVM: FavoriteVM by viewModels {
+        FavoriteVMFactory.Factory(assistedFactory, this)
+    }
     @Inject
     lateinit var favoriteAdapter: FavoriteAdapter
 
@@ -77,4 +85,21 @@ class FavoriteFragment : Fragment(), SwipeListener {
         favoriteVM.deleteFavorite(favoriteAdapter.favoriteAt(position))
     }
 
+    override fun onConnectionFailed() {
+    }
+
+    override fun showIndicator() {
+
+    }
+
+    override fun hideIndicator() {
+
+    }
+
+    override fun onErrorOccurred() {
+    }
+
+    override fun onSuccess() {
+        Toast.makeText(requireContext(), "Hello", Toast.LENGTH_SHORT).show()
+    }
 }
