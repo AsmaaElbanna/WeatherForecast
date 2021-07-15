@@ -39,7 +39,7 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".reciever.AlarmReciever" />
+        <receiver android:name="com.happycomp.weatherforecast.alarmmanager.reciever.AlarmReciever" />
     </application>
 
 </manifest>

@@ -51,7 +51,9 @@
     <string name="alarm">Alarm</string>
     <string name="date_and_time">Date and time</string>
     <string name="set_exact_alarm">Set exact alarm</string>
+    <string name="set_description">Set Description</string>
     <string name="type">Type</string>
+    <string name="set_date_and_time">Set Date and Time</string>
 
     <string-array name="alarm_type">
         <item>@string/rain</item>
