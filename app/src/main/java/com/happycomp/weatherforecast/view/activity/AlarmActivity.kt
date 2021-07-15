@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
+import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -40,19 +41,44 @@ class AlarmActivity : AppCompatActivity() {
 
         binding.dateAndTime.text=alarmReciever.convertDate(System.currentTimeMillis()).toString()
 
+        var isChecking = false
+
         // type
-        binding.rgType.setOnCheckedChangeListener { _, checkedId ->
+        binding.rgType1.setOnCheckedChangeListener { _, checkedId ->
             val type = when (checkedId) {
                 binding.rbRain.id -> AlarmType.Rain.name
                 binding.rbSnow.id -> AlarmType.Snow.name
                 binding.rbCloud.id -> AlarmType.Cloud.name
+                else -> AlarmType.Rain.name
+            }
+
+            if(checkedId != -1 && isChecking){
+                isChecking = false
+                binding.rgType2.clearCheck()
+            }
+
+            alarmVM.type.value = type
+            isChecking = true
+        }
+
+        // type
+        binding.rgType2.setOnCheckedChangeListener { _, checkedId ->
+            val type = when (checkedId) {
                 binding.rbWind.id -> AlarmType.Wind.name
                 binding.rbThunder.id -> AlarmType.ThunderStorm.name
                 binding.rbMistOrFogRB.id -> AlarmType.MistFog.name
                 else -> AlarmType.Rain.name
             }
+
+            if(checkedId != -1 && isChecking){
+                isChecking = false
+                binding.rgType1.clearCheck()
+            }
             alarmVM.type.value = type
+            isChecking = true
         }
+
+        binding.rbRain.isChecked = true
 
         binding.setExactAlarm.setOnClickListener {
             setAlarm { timeInMillis ->
