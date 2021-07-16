@@ -19,7 +19,6 @@
     <string name="temp_celsius_radioBtn">Celsius (°C)</string>
     <string name="temp_kelvin_radioBtn">Kelvin (°K)</string>
     <string name="temp_fahrenheit_radioBtn">Fahrenheit (°F)</string>
-    <string name="wind_unit">Wind unit</string>
     <string name="meter_radioBtn">meter/sec</string>
     <string name="mile_radioBtn">mile/sec</string>
     <string name="language">Language</string>
@@ -54,6 +53,10 @@
     <string name="set_description">Set Description</string>
     <string name="type">Type</string>
     <string name="set_date_and_time">Set Date and Time</string>
+    <string name="gps">GPS</string>
+    <string name="temperature_unit">Temperature unit</string>
+    <string name="wind_unit">Wind unit</string>
+    <string name="arabic">Arabic</string>
 
     <string-array name="alarm_type">
         <item>@string/rain</item>
