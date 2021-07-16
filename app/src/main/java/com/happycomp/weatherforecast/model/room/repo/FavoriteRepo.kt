@@ -24,7 +24,7 @@ class FavoriteRepo @Inject constructor(
                 lat,
                 long,
                 "minutely,hourly,daily",
-                Units.metric.name
+                Units.Metric.value
             )
             if (response.isSuccessful) {
                 if (response.body() != null) {
@@ -54,7 +54,7 @@ class FavoriteRepo @Inject constructor(
                 baseWeather.lat,
                 baseWeather.lon,
                 "minutely,hourly,daily",
-                Units.metric.name
+                Units.Metric.value
             )
             if (response.isSuccessful && response.body() != null) {
                 val baseWeatherResult: BaseWeather = response.body()!!

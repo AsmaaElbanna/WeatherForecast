@@ -31,7 +31,7 @@ class HomeVM @AssistedInject constructor(
                     weatherInterface.getWeatherData(
                         location.latitude,
                         location.longitude,
-                        units = Units.metric.name
+                        units = Units.Metric.value
                     )
 
                 if (response.isSuccessful && response.body() != null) {
