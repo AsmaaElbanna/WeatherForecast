@@ -106,4 +106,7 @@ dependencies {
 
     // Circle Progress
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
+
+    // Picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }

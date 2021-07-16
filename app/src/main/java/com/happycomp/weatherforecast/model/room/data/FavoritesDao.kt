@@ -13,6 +13,9 @@ interface FavoritesDao {
     @Delete
     suspend fun deleteFavorite(baseWeather: BaseWeather)
 
+    @Update
+    suspend fun updateFavorite(baseWeather: BaseWeather)
+
     @Transaction
     @Query("SELECT * FROM favorites")
     fun observeAllFavorites(): LiveData<List<BaseWeather>>

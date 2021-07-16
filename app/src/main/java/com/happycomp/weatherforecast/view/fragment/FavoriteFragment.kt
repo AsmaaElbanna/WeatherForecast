@@ -11,6 +11,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ItemTouchHelper
+import com.google.android.gms.maps.model.LatLng
 import com.happycomp.weatherforecast.databinding.FragmentFavoriteBinding
 import com.happycomp.weatherforecast.model.adapters.FavoriteAdapter
 import com.happycomp.weatherforecast.model.adapters.helpers.SwipeToDelete
@@ -32,6 +33,7 @@ class FavoriteFragment : Fragment(), SwipeListener, NetworkHandler {
     private val favoriteVM: FavoriteVM by viewModels {
         FavoriteVMFactory.Factory(assistedFactory, this)
     }
+
     @Inject
     lateinit var favoriteAdapter: FavoriteAdapter
 
@@ -40,19 +42,9 @@ class FavoriteFragment : Fragment(), SwipeListener, NetworkHandler {
             if (it.resultCode == Activity.RESULT_OK) {
                 val intent = it.data
                 if (intent != null) {
-                    val lat = intent.getDoubleExtra(MapsActivity.LATITUDE, -1.0)
-                    val long = intent.getDoubleExtra(MapsActivity.LONGITUDE, -1.0)
-                    if (lat != -1.0 || long != -1.0) {
-                        Toast.makeText(requireContext(), "$lat, $long", Toast.LENGTH_SHORT).show()
-                        favoriteAdapter.currentList.find { favorite ->
-                            favorite.lat == lat && favorite.lon == long
-                        }.also { result ->
-                            if(result != null){
-                                Toast.makeText(requireContext(), "Here!", Toast.LENGTH_SHORT).show()
-                            } else{
-                                favoriteVM.addNewFavorite(lat, long)
-                            }
-                        }
+                    val location = intent.getParcelableExtra<LatLng>(MapsActivity.SELECTED_LOCATION)
+                    if (location != null) {
+                        favoriteVM.addNewFavorite(location.latitude, location.longitude)
                     }
                     else{
                         Toast.makeText(requireContext(), "You Didn't Select Location!", Toast.LENGTH_SHORT).show()
@@ -71,6 +63,8 @@ class FavoriteFragment : Fragment(), SwipeListener, NetworkHandler {
 
         favoriteVM.favorites.observe(viewLifecycleOwner, {
             favoriteAdapter.submitList(it)
+            if(!favoriteVM.isRefreshed)
+                favoriteVM.refresh()
         })
 
         binding.fabAdd.setOnClickListener {

@@ -47,4 +47,19 @@ class FavoriteRepo @Inject constructor(
     override suspend fun deleteFavorite(baseWeather: BaseWeather) {
         favoritesDao.deleteFavorite(baseWeather)
     }
+
+    override suspend fun updateFavorite(baseWeather: BaseWeather) {
+        try {
+            val response = weatherInterface.getWeatherData(
+                baseWeather.lat,
+                baseWeather.lon,
+                "minutely,hourly,daily",
+                Units.metric.name
+            )
+            if (response.isSuccessful && response.body() != null) {
+                val baseWeatherResult: BaseWeather = response.body()!!
+                favoritesDao.updateFavorite(baseWeatherResult)
+            }
+        } catch (e: Exception) { }
+    }
 }

@@ -7,4 +7,5 @@ interface FavoriteActions {
     fun observeAllFavorites(): LiveData<List<BaseWeather>>
     suspend fun addNewFavorite(lat: Double, long: Double, networkHandler: NetworkHandler)
     suspend fun deleteFavorite(baseWeather: BaseWeather)
+    suspend fun updateFavorite(baseWeather: BaseWeather)
 }

@@ -2,7 +2,6 @@ package com.happycomp.weatherforecast.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.happycomp.weatherforecast.model.interfaces.FavoriteActions
 import com.happycomp.weatherforecast.model.interfaces.NetworkHandler
@@ -13,9 +12,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class FavoriteVM @AssistedInject constructor(private val favoriteActions: FavoriteActions, @Assisted private val networkHandler: NetworkHandler) : ViewModel() {
+class FavoriteVM @AssistedInject constructor(
+    private val favoriteActions: FavoriteActions,
+    @Assisted private val networkHandler: NetworkHandler
+) : ViewModel() {
 
     val favorites: LiveData<List<BaseWeather>> = favoriteActions.observeAllFavorites()
+    var isRefreshed = false
 
     fun addNewFavorite(lat: Double, long: Double) {
         GlobalScope.launch(Dispatchers.IO) {
@@ -27,5 +30,19 @@ class FavoriteVM @AssistedInject constructor(private val favoriteActions: Favori
         viewModelScope.launch {
             favoriteActions.deleteFavorite(baseWeather)
         }
+    }
+
+    fun updateFavorite(baseWeather: BaseWeather){
+        viewModelScope.launch {
+            favoriteActions.updateFavorite(baseWeather)
+        }
+    }
+
+    fun refresh() {
+        for (favorite in favorites.value!!)
+            updateFavorite(favorite)
+            //addNewFavorite(favorite.lat, favorite.lon)
+
+        isRefreshed = true
     }
 }
