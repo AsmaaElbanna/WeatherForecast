@@ -55,6 +55,12 @@
     <string name="temperature_unit">Temperature unit</string>
     <string name="wind_unit">Wind unit</string>
     <string name="arabic">Arabic</string>
+    <string name="auto_c">Auto(°C)</string>
+    <string name="k">°K</string>
+    <string name="f">°F</string>
+    <string name="cancel">Cancel</string>
+    <string name="meter_sec">Meter/sec</string>
+    <string name="mile_sec">Mile/sec</string>
 
     <string-array name="alarm_type">
         <item>@string/rain</item>
