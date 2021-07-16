@@ -1,4 +1,4 @@
-package com.happycomp.weatherforecast.model.room
+package com.happycomp.weatherforecast.model.room.data
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson

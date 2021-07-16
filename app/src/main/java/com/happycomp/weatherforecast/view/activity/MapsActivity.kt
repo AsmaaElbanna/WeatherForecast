@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -21,8 +22,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var binding: ActivityMapsBinding
     private lateinit var mMap: GoogleMap
 
-    private var lat: Double = -1.0
-    private var long: Double = -1.0
+    // Current Location of Egypt
+    private var currentLocation: LatLng = LatLng(30.0595581, 31.223445)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,8 +34,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         binding.btnConfirm.setOnClickListener {
             setResult(Activity.RESULT_OK, Intent().apply {
-                putExtra(LATITUDE, lat)
-                putExtra(LONGITUDE, long)
+                putExtra(SELECTED_LOCATION, currentLocation)
             })
             finish()
         }
@@ -57,9 +57,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 ), REQUEST_CODE
             )
         } else {
-            val mapFragment =
-                supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
-            mapFragment.getMapAsync(this)
+            LocationServices.getFusedLocationProviderClient(this).lastLocation.addOnSuccessListener { location ->
+                val mapFragment =
+                    supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+                currentLocation = LatLng(location.latitude, location.longitude)
+                mapFragment.getMapAsync(this)
+            }
+
         }
     }
 
@@ -67,15 +71,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap = googleMap
 
         mMap.setOnMapClickListener { point ->
-            lat = point.latitude
-            long = point.longitude
+            currentLocation = LatLng(point.latitude, point.longitude)
             mMap.clear()
             mMap.addMarker(MarkerOptions().position(point).title("Your Selected Location"))
         }
 
-        val egypt = LatLng(30.0595581,31.223445)
+        mMap.addMarker(MarkerOptions().position(currentLocation).title("Current Location"))
 
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(egypt,6F))
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 6F))
     }
 
     override fun onBackPressed() {
@@ -84,25 +87,24 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         finish()
     }
 
-    companion object {
-        private const val REQUEST_CODE = 101
-        const val LATITUDE = "LATITUDE"
-        const val LONGITUDE = "LONGITUDE"
-    }
-
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when(requestCode){
-            REQUEST_CODE ->{
-                if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+        when (requestCode) {
+            REQUEST_CODE -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
                     checkPermission()
                 else
                     return
             }
         }
+    }
+
+    companion object {
+        private const val REQUEST_CODE = 101
+        const val SELECTED_LOCATION = "SELECTED_LOCATION"
     }
 }

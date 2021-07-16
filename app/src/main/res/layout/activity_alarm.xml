@@ -100,15 +100,14 @@
                         android:layout_height="wrap_content"
                         android:text="@string/type" />
 
-                    <RadioGroup
-                        android:id="@+id/rgType"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:checkedButton="@id/rbRain"
                         android:orientation="horizontal"
                         android:weightSum="2">
 
-                        <LinearLayout
+                        <RadioGroup
+                            android:id="@+id/rgType1"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -131,10 +130,11 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/cloud" />
-                        </LinearLayout>
+                        </RadioGroup>
 
 
-                        <LinearLayout
+                        <RadioGroup
+                            android:id="@+id/rgType2"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -157,9 +157,9 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/mist_fog" />
-                        </LinearLayout>
+                        </RadioGroup>
 
-                    </RadioGroup>
+                    </LinearLayout>
                 </LinearLayout>
 
                 <com.google.android.material.textfield.TextInputLayout

@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.happycomp.weatherforecast.model.enums.AlarmType
 import com.happycomp.weatherforecast.model.pojo.Alarm
-import com.happycomp.weatherforecast.model.room.AlarmDao
+import com.happycomp.weatherforecast.model.room.data.AlarmDao
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

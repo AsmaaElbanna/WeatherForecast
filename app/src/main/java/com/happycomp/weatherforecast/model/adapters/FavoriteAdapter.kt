@@ -5,8 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.happycomp.weatherforecast.R
 import com.happycomp.weatherforecast.databinding.ItemFavoriteBinding
 import com.happycomp.weatherforecast.model.pojo.BaseWeather
+import com.squareup.picasso.Picasso
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -27,6 +29,10 @@ class FavoriteAdapter @Inject constructor() :
     inner class BaseWeatherViewHolder(private val binding: ItemFavoriteBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(favorite: BaseWeather) {
+            val icon = favorite.current.weather.first().icon
+            val uri = "http://openweathermap.org/img/wn/$icon@2x.png"
+            Picasso.get().load(uri).placeholder(R.drawable.bakar).error(R.drawable.bakar)
+                .into(binding.imgStatus)
             binding.favorite = favorite
         }
     }

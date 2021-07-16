@@ -1,4 +1,4 @@
-package com.happycomp.weatherforecast.model.room
+package com.happycomp.weatherforecast.model.room.data
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
@@ -12,6 +12,9 @@ interface FavoritesDao {
 
     @Delete
     suspend fun deleteFavorite(baseWeather: BaseWeather)
+
+    @Update
+    suspend fun updateFavorite(baseWeather: BaseWeather)
 
     @Transaction
     @Query("SELECT * FROM favorites")
