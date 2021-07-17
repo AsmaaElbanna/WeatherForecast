@@ -94,9 +94,14 @@ class AlarmActivity : AppCompatActivity() {
                 alarmVM.desc.get()!!
             )
             alarmVM.addAlarm(alarm)
+            setAlarm { timeInMillis ->
+                alarmService.setExactAlarm(timeInMillis)
+                alarmVM.time.value = alarmReciever.convertDate(timeInMillis)
+            }
+
+            alarmService.setExactAlarm(alarmVM.timeInMS.value!!)
             finish()
         }
-
 
         // alarm=Alarm()
 //        binding.setRepetitive.setOnClickListener{

@@ -1,5 +1,6 @@
 package com.happycomp.weatherforecast.model.adapters
 
+import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,64 +9,47 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.happycomp.weatherforecast.R
 import com.happycomp.weatherforecast.databinding.ItemWeatherDayBinding
+import com.happycomp.weatherforecast.databinding.ItemWeatherHoursBinding
 import com.happycomp.weatherforecast.model.pojo.Daily
+import com.squareup.picasso.Picasso
 import java.sql.Date
 import java.sql.Timestamp
 
 class WeatherDaysAdapter : RecyclerView.Adapter<WeatherDaysAdapter.ViewHolder>() {
 
+    private lateinit var binding: ItemWeatherDayBinding
     private var dailyList: List<Daily> = listOf()
-    fun setData(dailyList: List<Daily>){
+    fun setData(dailyList: List<Daily>) {
         this.dailyList = dailyList
         notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-       var view = LayoutInflater.from(parent.context)
-           .inflate(R.layout.item_weather_day,parent,false)
-
-        return ViewHolder(view)
+        binding =
+            ItemWeatherDayBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding.root)
 
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = dailyList[position]
+        binding.weatherDay = currentItem
         // view day
-        val stamp = Timestamp(currentItem.dt.toLong()*1000)
-        val date = Date(stamp.getTime())
-        holder.tvDay.text=date.toString()
-        //view temp
-        holder.tvTemp.text = currentItem.temp.day.toString()
-        //view min max temp
-        holder.tvMinMaxTemp.text = currentItem.temp.min.toString()+"/"+currentItem.temp.max.toString()
-        // view UVI
-        holder.tvUVI.text = "uvi: "+currentItem.uvi.toString()
-        // view description
-        holder.tvStatus.text = currentItem.weather[0].description
-
+        holder.tvDay.text = DateFormat.format("EEEE", currentItem.dt.toLong() * 1000)
+        // view image
+        val icon = currentItem.weather.first().icon
+        val uri = "http://openweathermap.org/img/wn/$icon@2x.png"
+        Picasso.get().load(uri).placeholder(R.drawable.bakar).error(R.drawable.bakar)
+            .into(holder.img)
     }
 
     override fun getItemCount(): Int {
-     return dailyList.size
+        return dailyList.size
     }
 
 
-    inner class ViewHolder(itemView:View) : RecyclerView.ViewHolder(itemView) {
-         var tvDay:TextView
-         var tvMinMaxTemp :TextView
-         var img : ImageView
-         var tvStatus : TextView
-         var tvTemp : TextView
-         var tvUVI : TextView
-
-        init {
-            tvDay = itemView.findViewById(R.id.day_text_view)
-            tvMinMaxTemp = itemView.findViewById(R.id.min_max_text_view)
-            img = itemView.findViewById(R.id.imageView)
-            tvStatus = itemView.findViewById(R.id.status_text_view)
-            tvTemp = itemView.findViewById(R.id.temp_text_view)
-            tvUVI = itemView.findViewById(R.id.tvUVI)
-        }
-
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var tvDay: TextView = itemView.findViewById(R.id.day_text_view)
+        var img: ImageView = itemView.findViewById(R.id.imageView)
     }
 }

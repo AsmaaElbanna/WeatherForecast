@@ -63,6 +63,8 @@
     <string name="cancel">Cancel</string>
     <string name="meter_sec">Meter/sec</string>
     <string name="mile_sec">Mile/sec</string>
+    <string name="uvi">UVI: %s</string>
+
 
     <string-array name="alarm_type">
         <item>@string/rain</item>
