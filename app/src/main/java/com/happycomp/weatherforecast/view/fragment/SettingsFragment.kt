@@ -28,8 +28,6 @@ class SettingsFragment : Fragment() {
             TemperatureUnit().show(requireActivity().supportFragmentManager, "Temp unit")
         }
 
-        binding.windUnitContainer.setOnClickListener {
-            WindUnit().show(requireActivity().supportFragmentManager, "Temp unit")
-        }
+
     }
 }
