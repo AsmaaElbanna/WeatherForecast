@@ -11,7 +11,8 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#EB061927">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -26,8 +27,9 @@
                     android:id="@+id/tvLocation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="24dp"
                     android:text="@{weather.timezone}"
+                    android:textColor="@color/white"
                     android:textSize="24sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -37,9 +39,10 @@
                     android:id="@+id/tvTemp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="24dp"
                     android:text="@{@string/country_temp((int)weather.current.temp)}"
-                    android:textSize="28sp"
+                    android:textColor="@color/white"
+                    android:textSize="34sp"
                     app:layout_constraintEnd_toEndOf="@+id/tvLocation"
                     app:layout_constraintStart_toStartOf="@+id/tvLocation"
                     app:layout_constraintTop_toBottomOf="@+id/tvLocation" />
@@ -48,8 +51,9 @@
                     android:id="@+id/tvStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="24dp"
                     android:text="@{weather.current.weather.get(0).description}"
+                    android:textColor="@color/white"
                     android:textSize="22sp"
                     app:layout_constraintEnd_toEndOf="@+id/tvTemp"
                     app:layout_constraintStart_toStartOf="@+id/tvTemp"
@@ -59,8 +63,7 @@
                     android:id="@+id/linearLayout"
                     android:layout_width="0dp"
                     android:layout_height="25dp"
-                    android:layout_marginTop="5dp"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="8dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvTime">
 
@@ -76,7 +79,8 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="Details" />
+                        android:text="Details"
+                        android:textColor="@color/white" />
 
                     <View
                         android:layout_width="match_parent"
@@ -93,6 +97,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:text="12:45 PM Fri 23/4/2021"
+                    android:textColor="@color/white"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -111,6 +116,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="10dp"
                         android:gravity="center_vertical"
+                        android:textColor="@color/white"
                         android:text="@string/cloud"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -121,6 +127,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:text="@{`` + weather.current.clouds}"
+                        android:textColor="@color/white"
                         app:layout_constraintBottom_toBottomOf="@+id/textView7"
                         app:layout_constraintStart_toEndOf="@+id/textView7"
                         app:layout_constraintTop_toTopOf="@+id/textView7" />
@@ -146,6 +153,7 @@
                         android:layout_marginBottom="10dp"
                         android:gravity="center_vertical"
                         android:text="@string/humidity"
+                        android:textColor="@color/white"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/view4" />
@@ -156,6 +164,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:text="@{`` + weather.current.humidity}"
+                        android:textColor="@color/white"
                         app:layout_constraintBottom_toBottomOf="@+id/textView9"
                         app:layout_constraintStart_toEndOf="@+id/textView9"
                         app:layout_constraintTop_toTopOf="@+id/textView9" />
@@ -181,6 +190,7 @@
                         android:layout_marginStart="16dp"
                         android:gravity="center_vertical"
                         android:text="@string/wind"
+                        android:textColor="@color/white"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView"
                         app:layout_constraintStart_toEndOf="@+id/view5"
                         app:layout_constraintTop_toTopOf="@+id/imageView" />
@@ -191,6 +201,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:text="@{`` + weather.current.wind_speed}"
+                        android:textColor="@color/white"
                         app:layout_constraintBottom_toBottomOf="@+id/textView11"
                         app:layout_constraintStart_toEndOf="@+id/textView11"
                         app:layout_constraintTop_toTopOf="@+id/textView11" />
@@ -202,6 +213,7 @@
                         android:layout_marginStart="16dp"
                         android:gravity="center_vertical"
                         android:text="@string/pressure"
+                        android:textColor="@color/white"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView4"
                         app:layout_constraintStart_toEndOf="@+id/view5"
                         app:layout_constraintTop_toTopOf="@+id/imageView4" />
@@ -212,6 +224,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         android:text="@{`` + weather.current.pressure}"
+                        android:textColor="@color/white"
                         app:layout_constraintBottom_toBottomOf="@+id/textView13"
                         app:layout_constraintStart_toEndOf="@+id/textView13"
                         app:layout_constraintTop_toTopOf="@+id/textView13" />
@@ -224,7 +237,7 @@
                         app:layout_constraintBottom_toBottomOf="@+id/textView7"
                         app:layout_constraintEnd_toStartOf="@+id/view5"
                         app:layout_constraintTop_toTopOf="@+id/textView7"
-                        app:srcCompat="@drawable/ic_baseline_add_alert_24" />
+                        app:srcCompat="@drawable/clouds" />
 
                     <ImageView
                         android:id="@+id/imageView4"
@@ -234,7 +247,7 @@
                         app:layout_constraintBottom_toBottomOf="@+id/textView9"
                         app:layout_constraintEnd_toStartOf="@+id/view5"
                         app:layout_constraintTop_toTopOf="@+id/textView9"
-                        app:srcCompat="@drawable/ic_baseline_home_24" />
+                        app:srcCompat="@drawable/humidityicon" />
 
                     <ImageView
                         android:id="@+id/imageView5"
@@ -244,7 +257,7 @@
                         app:layout_constraintBottom_toBottomOf="@+id/textView11"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/textView11"
-                        app:srcCompat="@drawable/ic_baseline_favorite_24" />
+                        app:srcCompat="@drawable/wind" />
 
                     <ImageView
                         android:id="@+id/imageView6"
@@ -254,7 +267,7 @@
                         app:layout_constraintBottom_toBottomOf="@+id/textView13"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/textView13"
-                        app:srcCompat="@drawable/ic_baseline_settings_24" />
+                        app:srcCompat="@drawable/pressureicon" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -278,6 +291,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:textColor="@color/white"
                         android:gravity="center"
                         android:text="Hours" />
 
@@ -322,6 +336,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
+                        android:textColor="@color/white"
                         android:text="7-Days" />
 
                     <View

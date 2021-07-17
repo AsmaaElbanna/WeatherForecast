@@ -20,7 +20,7 @@ class TemperatureUnit : BottomSheetDialogFragment() {
     ): View {
         binding = BottomSheetTemperatureBinding.inflate(inflater, container, false)
 
-        when(Constants.currentUnits.value){
+        when (Constants.currentUnits.value) {
             Units.Metric -> binding.rbAutoC.isChecked = true
             Units.Standard -> binding.rbF.isChecked = true
             Units.Imperial -> binding.rbK.isChecked = true
@@ -35,9 +35,8 @@ class TemperatureUnit : BottomSheetDialogFragment() {
                 else -> Units.Metric
             }
 
-            if(Constants.currentUnits.value != selectedUnit){
+            if (Constants.currentUnits.value != selectedUnit) {
                 Constants.saveUnit(requireContext(), selectedUnit.name)
-
             }
         }
         return binding.root

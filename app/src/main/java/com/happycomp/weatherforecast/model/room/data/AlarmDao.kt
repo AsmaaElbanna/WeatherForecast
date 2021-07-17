@@ -17,6 +17,6 @@ interface AlarmDao {
     suspend fun deleteOldAlarms(currentTime: Long = Calendar.getInstance().timeInMillis)
 
     @Transaction
-    @Query("SELECT * FROM alarm;")
+    @Query("SELECT * FROM alarm ORDER BY id")
     fun observeAllAlarms(): LiveData<List<Alarm>>
 }
