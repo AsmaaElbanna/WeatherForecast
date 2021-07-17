@@ -2,19 +2,14 @@ package com.happycomp.weatherforecast.view.activity
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import android.content.Intent
 import android.os.Bundle
-import android.widget.RadioGroup
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.happycomp.weatherforecast.R
-import com.happycomp.weatherforecast.model.enums.AlarmType
-import com.happycomp.weatherforecast.model.pojo.Alarm
 import com.happycomp.weatherforecast.alarmmanager.reciever.AlarmReciever
 import com.happycomp.weatherforecast.alarmmanager.service.AlarmService
 import com.happycomp.weatherforecast.databinding.ActivityAlarmBinding
-import com.happycomp.weatherforecast.view.fragment.AlertFragment
+import com.happycomp.weatherforecast.model.enums.AlarmType
+import com.happycomp.weatherforecast.model.pojo.Alarm
 import com.happycomp.weatherforecast.viewmodel.AlarmVM
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -39,7 +34,8 @@ class AlarmActivity : AppCompatActivity() {
         alarmService = AlarmService(this)
         alarmReciever = AlarmReciever()
 
-        binding.dateAndTime.text=alarmReciever.convertDate(System.currentTimeMillis()).toString()
+        alarmVM.timeInMS.value = System.currentTimeMillis() + 86400000
+        alarmVM.time.value = alarmReciever.convertDate(alarmVM.timeInMS.value!!)
 
         var isChecking = false
 
@@ -52,7 +48,7 @@ class AlarmActivity : AppCompatActivity() {
                 else -> AlarmType.Rain.name
             }
 
-            if(checkedId != -1 && isChecking){
+            if (checkedId != -1 && isChecking) {
                 isChecking = false
                 binding.rgType2.clearCheck()
             }
@@ -70,7 +66,7 @@ class AlarmActivity : AppCompatActivity() {
                 else -> AlarmType.Rain.name
             }
 
-            if(checkedId != -1 && isChecking){
+            if (checkedId != -1 && isChecking) {
                 isChecking = false
                 binding.rgType1.clearCheck()
             }
@@ -84,15 +80,12 @@ class AlarmActivity : AppCompatActivity() {
             setAlarm { timeInMillis ->
                 alarmVM.time.value = alarmReciever.convertDate(timeInMillis)
                 alarmVM.timeInMS.value = timeInMillis
+                binding.dateAndTime.text = alarmVM.time.value
             }
-            binding.dateAndTime.text=""+alarmVM.time.value
         }
 
         binding.btnSave.setOnClickListener {
-            if (alarmVM.time.value == null) {
-                Toast.makeText(this, getString(R.string.select_time), Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
+
             alarm = Alarm(
                 alarmVM.isSound.get(),
                 alarmVM.time.value!!,
@@ -101,21 +94,7 @@ class AlarmActivity : AppCompatActivity() {
                 alarmVM.desc.get()!!
             )
             alarmVM.addAlarm(alarm)
-            val intent = Intent(this, AlertFragment::class.java)
-            startActivity(intent)
-
-//            setAlarm { timeInMillis ->
-//                alarmService.setExactAlarm(timeInMillis)
-//                alarmVM.time.value = alarmReciever.convertDate(timeInMillis)
-//            }
-
-//            alarmService.setExactAlarm(alarmVM.timeInMS.value!!)
-
-            Toast.makeText(
-                this,
-                "data : ${alarm.isSound}, ${alarm.time}, ${alarm.type}, ${alarm.desc}",
-                Toast.LENGTH_SHORT
-            ).show()
+            finish()
         }
 
 

@@ -10,23 +10,19 @@ import com.happycomp.weatherforecast.databinding.BottomSheetTemperatureBinding
 import com.happycomp.weatherforecast.databinding.BottomSheetWindBinding
 
 class WindUnit : BottomSheetDialogFragment() {
-    private lateinit var binding : BottomSheetWindBinding
+    private lateinit var binding: BottomSheetWindBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = BottomSheetWindBinding.inflate(inflater,container,false)
-
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    ): View {
+        binding = BottomSheetWindBinding.inflate(inflater, container, false)
 
         binding.rbMile.setOnClickListener {
             Toast.makeText(requireContext(), "Mile", Toast.LENGTH_SHORT).show()
         }
+
+        return binding.root
     }
 }

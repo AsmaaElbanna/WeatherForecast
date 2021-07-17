@@ -1,12 +1,12 @@
 package com.happycomp.weatherforecast.model.room.repo
 
 import androidx.lifecycle.LiveData
-import com.happycomp.weatherforecast.model.enums.Units
 import com.happycomp.weatherforecast.model.interfaces.FavoriteActions
 import com.happycomp.weatherforecast.model.interfaces.NetworkHandler
 import com.happycomp.weatherforecast.model.pojo.BaseWeather
 import com.happycomp.weatherforecast.model.retrofit.WeatherInterface
 import com.happycomp.weatherforecast.model.room.data.FavoritesDao
+import com.happycomp.weatherforecast.util.Constants
 import javax.inject.Inject
 
 class FavoriteRepo @Inject constructor(
@@ -24,7 +24,7 @@ class FavoriteRepo @Inject constructor(
                 lat,
                 long,
                 "minutely,hourly,daily",
-                Units.Metric.value
+                Constants.currentUnits.value!!.value
             )
             if (response.isSuccessful) {
                 if (response.body() != null) {
@@ -54,7 +54,7 @@ class FavoriteRepo @Inject constructor(
                 baseWeather.lat,
                 baseWeather.lon,
                 "minutely,hourly,daily",
-                Units.Metric.value
+                Constants.currentUnits.value!!.value
             )
             if (response.isSuccessful && response.body() != null) {
                 val baseWeatherResult: BaseWeather = response.body()!!

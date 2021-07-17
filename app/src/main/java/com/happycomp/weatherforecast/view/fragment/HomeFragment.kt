@@ -3,7 +3,6 @@ package com.happycomp.weatherforecast.view.fragment
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.location.LocationManager
 import android.os.Bundle
@@ -14,7 +13,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts.RequestMultiplePermissions
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.android.gms.maps.model.LatLng
@@ -22,11 +20,11 @@ import com.happycomp.weatherforecast.databinding.FragmentHomeBinding
 import com.happycomp.weatherforecast.model.adapters.WeatherDaysAdapter
 import com.happycomp.weatherforecast.model.adapters.WeatherHoursAdapter
 import com.happycomp.weatherforecast.model.interfaces.NetworkHandler
+import com.happycomp.weatherforecast.util.Constants
 import com.happycomp.weatherforecast.viewmodel.HomeVM
 import com.happycomp.weatherforecast.viewmodel.HomeVMFactory
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
-
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(), NetworkHandler {
@@ -81,6 +79,7 @@ class HomeFragment : Fragment(), NetworkHandler {
         val weatherDaysAdapter = WeatherDaysAdapter()
         binding.rvHoursWeather.adapter = weatherHoursAdapter
         binding.rvDaysWeather.adapter = weatherDaysAdapter
+
         homeVM.loadLastResult(requireContext()).also {
             if (it != null) {
                 binding.weather = it
@@ -95,6 +94,12 @@ class HomeFragment : Fragment(), NetworkHandler {
             weatherHoursAdapter.setData(it.hourly!!)
             weatherDaysAdapter.setData(it.daily!!)
             homeVM.saveAsLastResult(requireContext(), it)
+        })
+
+        Constants.currentUnits.observe(viewLifecycleOwner, {
+            if (homeVM.weatherData.value != null){
+                homeVM.getWeather()
+            }
         })
 
         checkPermission()
@@ -112,14 +117,6 @@ class HomeFragment : Fragment(), NetworkHandler {
     override fun onConnectionFailed() {
         super.onConnectionFailed()
         Toast.makeText(requireContext(), "Network", Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onErrorOccurred() {
-        super.onErrorOccurred()
-    }
-
-    override fun onSuccess() {
-        super.onSuccess()
     }
 
     override fun showIndicator() {

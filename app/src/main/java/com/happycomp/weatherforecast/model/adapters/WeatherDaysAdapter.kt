@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.happycomp.weatherforecast.R
+import com.happycomp.weatherforecast.databinding.ItemWeatherDayBinding
 import com.happycomp.weatherforecast.model.pojo.Daily
 import java.sql.Date
 import java.sql.Timestamp
@@ -22,6 +23,7 @@ class WeatherDaysAdapter : RecyclerView.Adapter<WeatherDaysAdapter.ViewHolder>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
        var view = LayoutInflater.from(parent.context)
            .inflate(R.layout.item_weather_day,parent,false)
+
         return ViewHolder(view)
 
     }
