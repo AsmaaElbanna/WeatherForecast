@@ -5,8 +5,8 @@ import android.app.TimePickerDialog
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.happycomp.weatherforecast.alarmmanager.reciever.AlarmReciever
-import com.happycomp.weatherforecast.alarmmanager.service.AlarmService
+import com.happycomp.weatherforecast.alarmmanager.AlarmReciever
+import com.happycomp.weatherforecast.alarmmanager.AlarmService
 import com.happycomp.weatherforecast.databinding.ActivityAlarmBinding
 import com.happycomp.weatherforecast.model.enums.AlarmType
 import com.happycomp.weatherforecast.model.pojo.Alarm
@@ -93,18 +93,21 @@ class AlarmActivity : AppCompatActivity() {
                 alarmVM.type.value!!,
                 alarmVM.desc.get()!!
             )
+
+            if(alarmVM.alarms.value != null && alarmVM.alarms.value!!.count() > 0){
+                alarm.id = ++alarmVM.alarms.value!!.last().id
+            }
+
             alarmVM.addAlarm(alarm)
-            finish()
 
             setAlarm { timeInMillis ->
-                alarmService.setExactAlarm(timeInMillis)
+                alarmService.setExactAlarm(timeInMillis, alarm.id)
                 alarmVM.time.value = alarmReciever.convertDate(timeInMillis)
             }
 
-            alarmService.setExactAlarm(alarmVM.timeInMS.value!!)
-
+//            alarmService.setExactAlarm(alarmVM.timeInMS.value!!)
+            finish()
         }
-
 
         // alarm=Alarm()
 //        binding.setRepetitive.setOnClickListener{

@@ -7,8 +7,9 @@ import androidx.room.PrimaryKey
 data class Alarm(
     val isSound: Boolean,
     val time: String,
-    @PrimaryKey(autoGenerate = false)
     val timeMS: Long,
     val type: String,
-    val desc: String
+    val desc: String,
+    @PrimaryKey(autoGenerate = false)
+    var id: Int = 1,
 )

@@ -87,7 +87,6 @@ class HomeFragment : Fragment(), NetworkHandler {
                 weatherHoursAdapter.setData(it.hourly!!)
                 weatherDaysAdapter.setData(it.daily!!)
                 homeVM.lastKnownLocation = LatLng(it.lat, it.lon)
-                //12:45 PM Fri 23/4/2021
                 binding.tvTime.text = DateFormat.format("hh:mm a EE dd/MM/yyyy", it.current.dt * 1000.toLong())
 
             }

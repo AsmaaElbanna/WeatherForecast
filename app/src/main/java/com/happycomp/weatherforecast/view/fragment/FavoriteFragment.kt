@@ -17,6 +17,7 @@ import com.happycomp.weatherforecast.model.adapters.FavoriteAdapter
 import com.happycomp.weatherforecast.model.adapters.helpers.SwipeToDelete
 import com.happycomp.weatherforecast.model.interfaces.NetworkHandler
 import com.happycomp.weatherforecast.model.interfaces.SwipeListener
+import com.happycomp.weatherforecast.util.Constants
 import com.happycomp.weatherforecast.view.activity.MapsActivity
 import com.happycomp.weatherforecast.viewmodel.FavoriteVM
 import com.happycomp.weatherforecast.viewmodel.FavoriteVMFactory
@@ -63,8 +64,11 @@ class FavoriteFragment : Fragment(), SwipeListener, NetworkHandler {
 
         favoriteVM.favorites.observe(viewLifecycleOwner, {
             favoriteAdapter.submitList(it)
-            if(!favoriteVM.isRefreshed)
-                favoriteVM.refresh()
+            if(!favoriteVM.isRefreshed){
+                Constants.currentUnits.observe(viewLifecycleOwner, {
+                      favoriteVM.refresh()
+                })
+            }
         })
 
         binding.fabAdd.setOnClickListener {

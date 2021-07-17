@@ -57,9 +57,9 @@
     <string name="temperature_unit">Temperature unit</string>
     <string name="wind_unit">Wind unit</string>
     <string name="arabic">Arabic</string>
-    <string name="auto_c">Auto(°C)</string>
-    <string name="k">°K</string>
-    <string name="f">°F</string>
+    <string name="c">C° - Meter/Sec</string>
+    <string name="f">F° - Meter/Sec</string>
+    <string name="k">K° - Mile/Hour</string>
     <string name="cancel">Cancel</string>
     <string name="meter_sec">Meter/sec</string>
     <string name="mile_sec">Mile/sec</string>
@@ -76,8 +76,8 @@
     </string-array>
 
     <string-array name="units">
-        <item>@string/auto_c</item>
-        <item>@string/k</item>
+        <item>@string/c</item>
         <item>@string/f</item>
+        <item>@string/k</item>
     </string-array>
 </resources>
