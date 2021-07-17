@@ -24,12 +24,18 @@ class AlarmActivity : AppCompatActivity() {
 
     private val alarmVM: AlarmVM by viewModels()
 
+    private var lastID = 1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAlarmBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.alarmVM = alarmVM
+
+        alarmVM.alarms.observe(this, {
+            lastID = it.last().id
+        })
 
         alarmService = AlarmService(this)
         alarmReciever = AlarmReciever()
@@ -91,12 +97,9 @@ class AlarmActivity : AppCompatActivity() {
                 alarmVM.time.value!!,
                 alarmVM.timeInMS.value!!,
                 alarmVM.type.value!!,
-                alarmVM.desc.get()!!
+                alarmVM.desc.get()!!,
+                ++lastID
             )
-
-            if(alarmVM.alarms.value != null && alarmVM.alarms.value!!.count() > 0){
-                alarm.id = ++alarmVM.alarms.value!!.last().id
-            }
 
             alarmVM.addAlarm(alarm)
 
@@ -105,7 +108,6 @@ class AlarmActivity : AppCompatActivity() {
                 alarmVM.time.value = alarmReciever.convertDate(timeInMillis)
             }
 
-//            alarmService.setExactAlarm(alarmVM.timeInMS.value!!)
             finish()
         }
 
