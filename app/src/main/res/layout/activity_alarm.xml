@@ -178,8 +178,8 @@
                         android:id="@+id/etDescription"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
                         android:hint="@string/set_description"
+                        android:minLines="3"
                         android:maxLength="150"
                         android:padding="10dp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -189,7 +189,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
-                    android:text="TextView"
+                    android:text="@{alarmVM.time}"
                     app:layout_constraintBottom_toBottomOf="@+id/set_exact_alarm"
                     app:layout_constraintEnd_toStartOf="@+id/set_exact_alarm"
                     app:layout_constraintStart_toStartOf="@+id/alarmSoundContainer"

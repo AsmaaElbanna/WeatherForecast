@@ -60,10 +60,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             LocationServices.getFusedLocationProviderClient(this).lastLocation.addOnSuccessListener { location ->
                 val mapFragment =
                     supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
-                if(location!=null)
+                if (location != null)
                     currentLocation = LatLng(location.latitude, location.longitude)
-                    mapFragment.getMapAsync(this)
-
+                mapFragment.getMapAsync(this)
             }
 
         }

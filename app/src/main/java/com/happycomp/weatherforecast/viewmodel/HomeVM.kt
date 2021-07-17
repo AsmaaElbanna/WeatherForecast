@@ -6,10 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.LatLng
 import com.google.gson.Gson
-import com.happycomp.weatherforecast.model.enums.Units
 import com.happycomp.weatherforecast.model.interfaces.NetworkHandler
 import com.happycomp.weatherforecast.model.pojo.BaseWeather
 import com.happycomp.weatherforecast.model.retrofit.WeatherInterface
+import com.happycomp.weatherforecast.util.Constants
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers
@@ -25,13 +25,13 @@ class HomeVM @AssistedInject constructor(
 
     fun getWeather(location: LatLng = lastKnownLocation) {
         networkHandler.showIndicator()
-        viewModelScope.launch {
+        GlobalScope.launch {
             try {
                 val response =
                     weatherInterface.getWeatherData(
                         location.latitude,
                         location.longitude,
-                        units = Units.metric.name
+                        units = Constants.currentUnits.value!!.value
                     )
 
                 if (response.isSuccessful && response.body() != null) {

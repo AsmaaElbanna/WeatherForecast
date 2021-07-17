@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-   style="@style/AppModalStyle">
+    android:background="@drawable/rounded_bottom_sheet">
 
     <View
         android:id="@+id/view6"
@@ -30,6 +30,7 @@
             android:id="@+id/rbAutoC"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:checked="true"
             android:text="@string/auto_c" />
 
         <RadioButton
@@ -46,10 +47,11 @@
     </RadioGroup>
 
     <Button
-        android:id="@+id/btnCancel"
+        android:id="@+id/btnConfirm"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/cancel"
+        android:text="@string/Confirm"
+        android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="@+id/rgTempUnit"
         app:layout_constraintStart_toStartOf="@+id/rgTempUnit"
         app:layout_constraintTop_toBottomOf="@+id/rgTempUnit" />

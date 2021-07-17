@@ -1,6 +1,8 @@
 package com.happycomp.weatherforecast.model.retrofit
 
 import com.happycomp.weatherforecast.BuildConfig
+import com.happycomp.weatherforecast.model.enums.Language
+import com.happycomp.weatherforecast.model.enums.Units
 import com.happycomp.weatherforecast.model.pojo.BaseWeather
 import retrofit2.Response
 import retrofit2.http.GET
@@ -21,7 +23,8 @@ interface WeatherInterface {
         @Query("lat") lat: Double,
         @Query("lon") lon: Double,
         @Query("exclude") exclude: String = "minutely",
-        @Query("units") units: String = "standard",
+        @Query("units") units: String = Units.Standard.value,
+        @Query("lang") lang: String = Language.English.value,
         @Query("appid") APIKEY: String = BuildConfig.WEATHER_KEY
     ): Response<BaseWeather>
 }

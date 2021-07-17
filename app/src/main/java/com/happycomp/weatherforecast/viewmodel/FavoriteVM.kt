@@ -2,7 +2,6 @@ package com.happycomp.weatherforecast.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.happycomp.weatherforecast.model.interfaces.FavoriteActions
 import com.happycomp.weatherforecast.model.interfaces.NetworkHandler
 import com.happycomp.weatherforecast.model.pojo.BaseWeather
@@ -27,13 +26,13 @@ class FavoriteVM @AssistedInject constructor(
     }
 
     fun deleteFavorite(baseWeather: BaseWeather) {
-        viewModelScope.launch {
+        GlobalScope.launch {
             favoriteActions.deleteFavorite(baseWeather)
         }
     }
 
-    fun updateFavorite(baseWeather: BaseWeather){
-        viewModelScope.launch {
+    private fun updateFavorite(baseWeather: BaseWeather){
+        GlobalScope.launch {
             favoriteActions.updateFavorite(baseWeather)
         }
     }
@@ -41,8 +40,6 @@ class FavoriteVM @AssistedInject constructor(
     fun refresh() {
         for (favorite in favorites.value!!)
             updateFavorite(favorite)
-            //addNewFavorite(favorite.lat, favorite.lon)
-
         isRefreshed = true
     }
 }

@@ -41,6 +41,6 @@ class AlarmReciever :BroadcastReceiver(){
     }
 
      fun convertDate(timeInMillis:Long) :String =
-        DateFormat.format("dd/mm/yyyy , hh:mm:ss",timeInMillis).toString()
+        DateFormat.format("EE dd/MM/yyyy, hh:mm:ss a",timeInMillis).toString()
 
 }
