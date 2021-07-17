@@ -1,42 +1,46 @@
 package com.happycomp.weatherforecast.model.adapters
 
+import android.os.Build
+import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.happycomp.weatherforecast.R
+import com.happycomp.weatherforecast.databinding.ItemWeatherHoursBinding
 import com.happycomp.weatherforecast.model.pojo.Hourly
-import java.sql.Date
-import java.sql.Timestamp
+import com.squareup.picasso.Picasso
+
 
 class WeatherHoursAdapter : RecyclerView.Adapter<WeatherHoursAdapter.ViewHolder>() {
 
+    private lateinit var binding: ItemWeatherHoursBinding
     private var hoursList: List<Hourly> = listOf()
-    fun setData(hoursList: List<Hourly>){
+    fun setData(hoursList: List<Hourly>) {
         this.hoursList = hoursList
         notifyDataSetChanged()
     }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view =LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_weather_hours,parent,false)
-        return ViewHolder(view)
+        binding =
+            ItemWeatherHoursBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding.root)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-      val currentItem =hoursList[position]
-        //view temp
-        holder.tvTemp.text = currentItem.temp.toString()
-
+        val currentItem = hoursList[position]
+        binding.weatherHour = currentItem
         // view date
-        val stamp = Timestamp(currentItem.dt.toLong()*1000)
-        val date = Date(stamp.getTime())
-        holder.tvHour.text = date.toString()
-
-
+        holder.tvHour.text = DateFormat.format("hh:mm A", currentItem.dt.toLong() * 1000)
+        // view image
+        val icon = currentItem.weather.first().icon
+        val uri = "http://openweathermap.org/img/wn/$icon@2x.png"
+        Picasso.get().load(uri).placeholder(R.drawable.bakar).error(R.drawable.bakar)
+            .into(holder.img)
 
     }
 
@@ -46,16 +50,9 @@ class WeatherHoursAdapter : RecyclerView.Adapter<WeatherHoursAdapter.ViewHolder>
     }
 
 
-
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        var img:ImageView
-        var tvHour:TextView
-        var tvTemp:TextView
-         init {
-             img = itemView.findViewById(R.id.image_hour)
-             tvHour = itemView.findViewById(R.id.hour_text_view)
-             tvTemp = itemView.findViewById(R.id.temp_text_view)
-         }
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var img: ImageView = itemView.findViewById(R.id.image_hour)
+        var tvHour: TextView = itemView.findViewById(R.id.hour_text_view)
 
     }
 

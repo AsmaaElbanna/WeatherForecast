@@ -43,6 +43,8 @@ class MainActivity : AppCompatActivity() {
         binding.tabLayout.getTabAt(1)!!.setIcon(R.drawable.ic_baseline_favorite_24)
         binding.tabLayout.getTabAt(2)!!.setIcon(R.drawable.ic_baseline_add_alert_24)
         binding.tabLayout.getTabAt(3)!!.setIcon(R.drawable.ic_baseline_settings_24)
+        binding.viewPager.isUserInputEnabled = false
+
     }
 
     private fun checkPermission() {

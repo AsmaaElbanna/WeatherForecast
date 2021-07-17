@@ -8,23 +8,33 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#EB061927">
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/gpsSwitch"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:text="@string/gps"
-            android:textStyle="bold"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/view8"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintEnd_toEndOf="@+id/gpsSwitch"
+            app:layout_constraintStart_toStartOf="@+id/gpsSwitch"
+            app:layout_constraintTop_toBottomOf="@+id/gpsSwitch" />
 
         <LinearLayout
             android:id="@+id/tempUnitContainer"
@@ -42,11 +52,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textColor="@color/white"                android:textSize="16sp"
                 android:text="@string/temperature_unit" />
         </LinearLayout>
+
+        <View
+            android:id="@+id/view9"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintEnd_toEndOf="@+id/tempUnitContainer"
+            app:layout_constraintStart_toStartOf="@+id/tempUnitContainer"
+            app:layout_constraintTop_toBottomOf="@+id/tempUnitContainer" />
 
         <LinearLayout
             android:id="@+id/windUnitContainer"
@@ -64,11 +81,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textStyle="bold"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="16sp"
                 android:text="@string/wind_unit" />
         </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintStart_toStartOf="@+id/windUnitContainer"
+            app:layout_constraintTop_toBottomOf="@+id/windUnitContainer"
+            app:layout_constraintEnd_toEndOf="@id/windUnitContainer"/>
 
         <LinearLayout
             android:id="@+id/languageContainer"
@@ -86,8 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textStyle="bold"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="16sp"
                 android:text="@string/arabic" />
         </LinearLayout>

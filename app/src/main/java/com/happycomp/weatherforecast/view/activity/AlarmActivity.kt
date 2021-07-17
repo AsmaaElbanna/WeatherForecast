@@ -101,15 +101,14 @@ class AlarmActivity : AppCompatActivity() {
                 alarmVM.desc.get()!!
             )
             alarmVM.addAlarm(alarm)
-            val intent = Intent(this, AlertFragment::class.java)
-            startActivity(intent)
+            finish()
 
-//            setAlarm { timeInMillis ->
-//                alarmService.setExactAlarm(timeInMillis)
-//                alarmVM.time.value = alarmReciever.convertDate(timeInMillis)
-//            }
+            setAlarm { timeInMillis ->
+                alarmService.setExactAlarm(timeInMillis)
+                alarmVM.time.value = alarmReciever.convertDate(timeInMillis)
+            }
 
-//            alarmService.setExactAlarm(alarmVM.timeInMS.value!!)
+            alarmService.setExactAlarm(alarmVM.timeInMS.value!!)
 
             Toast.makeText(
                 this,
@@ -117,7 +116,6 @@ class AlarmActivity : AppCompatActivity() {
                 Toast.LENGTH_SHORT
             ).show()
         }
-
 
         // alarm=Alarm()
 //        binding.setRepetitive.setOnClickListener{
