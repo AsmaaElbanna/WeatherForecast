@@ -34,7 +34,8 @@ class AlarmActivity : AppCompatActivity() {
         binding.alarmVM = alarmVM
 
         alarmVM.alarms.observe(this, {
-            lastID = it.last().id
+            if (it.isNotEmpty())
+                lastID = it.last().id
         })
 
         alarmService = AlarmService(this)
@@ -104,9 +105,11 @@ class AlarmActivity : AppCompatActivity() {
             alarmVM.addAlarm(alarm)
 
             setAlarm { timeInMillis ->
-                alarmService.setExactAlarm(timeInMillis, alarm.id)
                 alarmVM.time.value = alarmReciever.convertDate(timeInMillis)
+                alarmVM.timeInMS.value = timeInMillis
             }
+
+            alarmService.setExactAlarm(alarmVM.timeInMS.value!!, alarm.id)
 
             finish()
         }
