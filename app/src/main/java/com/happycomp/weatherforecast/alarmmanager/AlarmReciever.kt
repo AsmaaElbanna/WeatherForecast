@@ -7,6 +7,7 @@ import android.text.format.DateFormat
 import android.util.Log
 import com.google.android.gms.maps.model.LatLng
 import com.happycomp.weatherforecast.R
+import com.happycomp.weatherforecast.model.enums.AlarmType
 import com.happycomp.weatherforecast.model.enums.Units
 import com.happycomp.weatherforecast.model.pojo.Alarm
 import com.happycomp.weatherforecast.model.retrofit.WeatherInterface
@@ -23,6 +24,7 @@ class AlarmReciever : BroadcastReceiver() {
 
     @Inject
     lateinit var alarmDao: AlarmDao
+
     @Inject
     lateinit var weatherInterface: WeatherInterface
 
@@ -56,13 +58,19 @@ class AlarmReciever : BroadcastReceiver() {
                     GlobalScope.launch(Dispatchers.Main) {
                         val weatherData = response.body()
                         alarmVM.deleteByID(alarm.id)
-                        displayNotification(weatherData!!.current.weather[0].description)
+
+                        val type = AlarmType.valueOf(alarm.type)
+                        if (weatherData!!.current.weather.first().description.contains(
+                                type.value,
+                                true
+                            )
+                        )
+                            displayNotification(weatherData.current.weather.first().description)
                     }
                 }
             } catch (e: Exception) {
                 GlobalScope.launch(Dispatchers.Main) {
                     Log.i("getWeatherTAG", e.toString())
-//                    Toast.makeText(context, "Exception: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -76,6 +84,5 @@ class AlarmReciever : BroadcastReceiver() {
             "Weather forecast", "weatherChannel"
         )
         notifications.displayNotification(contentText)
-
     }
 }

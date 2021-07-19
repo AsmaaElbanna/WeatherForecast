@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AlarmVM @Inject constructor(private val alarmDao: AlarmDao): ViewModel() {
+class AlarmVM @Inject constructor(private val alarmDao: AlarmDao) : ViewModel() {
 
     var isSound = ObservableBoolean()
     var type = MutableLiveData<String>().also { it.value = AlarmType.Rain.name }
@@ -28,19 +28,19 @@ class AlarmVM @Inject constructor(private val alarmDao: AlarmDao): ViewModel() {
 
     val alarms: LiveData<List<Alarm>> = alarmDao.observeAllAlarms()
 
-    fun addAlarm(alarm: Alarm){
+    fun addAlarm(alarm: Alarm) {
         viewModelScope.launch {
             alarmDao.addAlarm(alarm)
         }
     }
 
-    fun deleteAlarm(alarm: Alarm){
+    fun deleteAlarm(alarm: Alarm) {
         viewModelScope.launch {
             alarmDao.deleteAlarm(alarm)
         }
     }
 
-    fun deleteByID(ID: Int){
+    fun deleteByID(ID: Int) {
         GlobalScope.launch {
             alarmDao.deleteByID(ID)
         }

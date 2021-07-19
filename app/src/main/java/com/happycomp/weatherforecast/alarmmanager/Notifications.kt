@@ -6,26 +6,24 @@ import android.content.Context
 import android.graphics.BitmapFactory
 import android.os.Build
 import androidx.core.app.NotificationCompat
-import androidx.core.content.ContextCompat
 import com.happycomp.weatherforecast.R
-import com.squareup.picasso.Picasso
 
 class Notifications(val context: Context) {
 
-    private var notificationMannger: NotificationManager? = null
+    private var notificationManager: NotificationManager? = null
 
     init {
-        notificationMannger =
+        notificationManager =
             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     }
 
     fun createNotificationChannelID(id: String, name: String, channelDescription: String) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val importanceHigh = NotificationManager.IMPORTANCE_HIGH;
+            val importanceHigh = NotificationManager.IMPORTANCE_HIGH
             val channel = NotificationChannel(id, name, importanceHigh).apply {
                 description = channelDescription
             }
-            notificationMannger?.createNotificationChannel(channel)
+            notificationManager?.createNotificationChannel(channel)
         }
     }
 
@@ -39,12 +37,14 @@ class Notifications(val context: Context) {
             .setContentText(contentText)
             .setSmallIcon(R.drawable.ic_baseline_notifications_active_24)
             .setLargeIcon(
-                BitmapFactory.decodeResource(context.getResources(),
+                BitmapFactory.decodeResource(
+                    context.resources,
                     R.drawable.clouds
-                ))
+                )
+            )
             .setAutoCancel(true)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
 
-        notificationMannger?.notify(notificationID, notification.build())
+        notificationManager?.notify(notificationID, notification.build())
     }
 }

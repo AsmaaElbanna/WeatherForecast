@@ -1,4 +1,4 @@
-package com.happycomp.weatherforecast.bottomsheet
+package com.happycomp.weatherforecast.view.bottomsheet
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.happycomp.weatherforecast.databinding.BottomSheetTemperatureBinding
 import com.happycomp.weatherforecast.model.enums.Units
-import com.happycomp.weatherforecast.util.Constants
+import com.happycomp.weatherforecast.model.extra.Constants
 
 class TemperatureUnit : BottomSheetDialogFragment() {
 

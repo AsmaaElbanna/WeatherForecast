@@ -31,7 +31,7 @@ class FavoriteAdapter @Inject constructor() :
         fun bind(favorite: BaseWeather) {
             val icon = favorite.current.weather.first().icon
             val uri = "http://openweathermap.org/img/wn/$icon@2x.png"
-            Picasso.get().load(uri).placeholder(R.drawable.bakar).error(R.drawable.bakar)
+            Picasso.get().load(uri).placeholder(R.drawable.clouds).error(R.drawable.clouds)
                 .into(binding.imgStatus)
             binding.favorite = favorite
         }

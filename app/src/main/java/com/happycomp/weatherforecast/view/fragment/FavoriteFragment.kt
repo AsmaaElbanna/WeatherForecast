@@ -14,10 +14,10 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import com.google.android.gms.maps.model.LatLng
 import com.happycomp.weatherforecast.databinding.FragmentFavoriteBinding
 import com.happycomp.weatherforecast.model.adapters.FavoriteAdapter
-import com.happycomp.weatherforecast.model.adapters.helpers.SwipeToDelete
+import com.happycomp.weatherforecast.model.extra.SwipeToDelete
 import com.happycomp.weatherforecast.model.interfaces.NetworkHandler
 import com.happycomp.weatherforecast.model.interfaces.SwipeListener
-import com.happycomp.weatherforecast.util.Constants
+import com.happycomp.weatherforecast.model.extra.Constants
 import com.happycomp.weatherforecast.view.activity.MapsActivity
 import com.happycomp.weatherforecast.viewmodel.FavoriteVM
 import com.happycomp.weatherforecast.viewmodel.FavoriteVMFactory
@@ -46,9 +46,12 @@ class FavoriteFragment : Fragment(), SwipeListener, NetworkHandler {
                     val location = intent.getParcelableExtra<LatLng>(MapsActivity.SELECTED_LOCATION)
                     if (location != null) {
                         favoriteVM.addNewFavorite(location.latitude, location.longitude)
-                    }
-                    else{
-                        Toast.makeText(requireContext(), "You Didn't Select Location!", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "You Didn't Select Location!",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }
@@ -64,9 +67,9 @@ class FavoriteFragment : Fragment(), SwipeListener, NetworkHandler {
 
         favoriteVM.favorites.observe(viewLifecycleOwner, {
             favoriteAdapter.submitList(it)
-            if(!favoriteVM.isRefreshed){
+            if (!favoriteVM.isRefreshed) {
                 Constants.currentUnits.observe(viewLifecycleOwner, {
-                      favoriteVM.refresh()
+                    favoriteVM.refresh()
                 })
             }
         })
@@ -83,20 +86,20 @@ class FavoriteFragment : Fragment(), SwipeListener, NetworkHandler {
     }
 
     override fun onConnectionFailed() {
-    }
-
-    override fun showIndicator() {
-
-    }
-
-    override fun hideIndicator() {
-
+        super.onConnectionFailed()
+        Toast.makeText(
+            requireContext(),
+            "Failed to Connect, Please Check Your Network!",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     override fun onErrorOccurred() {
+        Toast.makeText(requireContext(), "Error Occurred, Please try Again!", Toast.LENGTH_SHORT)
+            .show()
     }
 
     override fun onSuccess() {
-        Toast.makeText(requireContext(), "Hello", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), "Success to Add!", Toast.LENGTH_SHORT).show()
     }
 }

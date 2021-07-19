@@ -31,7 +31,7 @@ class FavoriteVM @AssistedInject constructor(
         }
     }
 
-    private fun updateFavorite(baseWeather: BaseWeather){
+    private fun updateFavorite(baseWeather: BaseWeather) {
         GlobalScope.launch {
             favoriteActions.updateFavorite(baseWeather)
         }

@@ -5,9 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayoutMediator
 import com.happycomp.weatherforecast.R
 import com.happycomp.weatherforecast.databinding.ActivityMainBinding
-import com.happycomp.weatherforecast.model.adapters.helpers.PagerAdapter
+import com.happycomp.weatherforecast.model.extra.PagerAdapter
 import com.happycomp.weatherforecast.model.enums.Units
-import com.happycomp.weatherforecast.util.Constants
+import com.happycomp.weatherforecast.model.extra.Constants
 import com.happycomp.weatherforecast.view.fragment.AlertFragment
 import com.happycomp.weatherforecast.view.fragment.FavoriteFragment
 import com.happycomp.weatherforecast.view.fragment.HomeFragment

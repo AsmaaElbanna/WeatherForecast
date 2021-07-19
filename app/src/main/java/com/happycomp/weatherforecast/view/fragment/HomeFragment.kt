@@ -22,7 +22,7 @@ import com.happycomp.weatherforecast.databinding.FragmentHomeBinding
 import com.happycomp.weatherforecast.model.adapters.WeatherDaysAdapter
 import com.happycomp.weatherforecast.model.adapters.WeatherHoursAdapter
 import com.happycomp.weatherforecast.model.interfaces.NetworkHandler
-import com.happycomp.weatherforecast.util.Constants
+import com.happycomp.weatherforecast.model.extra.Constants
 import com.happycomp.weatherforecast.viewmodel.HomeVM
 import com.happycomp.weatherforecast.viewmodel.HomeVMFactory
 import dagger.hilt.android.AndroidEntryPoint
@@ -62,23 +62,23 @@ class HomeFragment : Fragment(), NetworkHandler {
 
     private fun buildAlertMessageNoGps() {
         val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
-        val alertDialog = builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
-            .setCancelable(false)
-            .setPositiveButton(
-                "Yes"
-            ) { _, _ -> startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)) }
-            .setNegativeButton(
-                "No"
-            ) { dialog, _ -> dialog.cancel() }.create()
+        val alertDialog =
+            builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
+                .setCancelable(false)
+                .setPositiveButton(
+                    "Yes"
+                ) { _, _ -> startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)) }
+                .setNegativeButton(
+                    "No"
+                ) { dialog, _ -> dialog.cancel() }.create()
 
         alertDialog.show()
 
-        Handler(Looper.getMainLooper()).postDelayed(Runnable {
+        Handler(Looper.getMainLooper()).postDelayed({
             if (alertDialog.isShowing) {
                 alertDialog.dismiss()
             }
         }, 3000)
-
     }
 
     override fun onCreateView(
@@ -129,7 +129,11 @@ class HomeFragment : Fragment(), NetworkHandler {
 
     override fun onConnectionFailed() {
         super.onConnectionFailed()
-        Toast.makeText(requireContext(), "Network", Toast.LENGTH_SHORT).show()
+        Toast.makeText(
+            requireContext(),
+            "Failed to Connect, Please Check Your Network!",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     override fun showIndicator() {
@@ -138,5 +142,11 @@ class HomeFragment : Fragment(), NetworkHandler {
 
     override fun hideIndicator() {
         binding.spinKit.visibility = View.INVISIBLE
+    }
+
+    override fun onErrorOccurred() {
+        super.onErrorOccurred()
+        Toast.makeText(requireContext(), "Error Occurred, Please try Again!", Toast.LENGTH_SHORT)
+            .show()
     }
 }

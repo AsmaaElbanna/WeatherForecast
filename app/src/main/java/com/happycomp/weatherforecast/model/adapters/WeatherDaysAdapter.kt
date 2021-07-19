@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.happycomp.weatherforecast.R
 import com.happycomp.weatherforecast.databinding.ItemWeatherDayBinding
 import com.happycomp.weatherforecast.model.pojo.Daily
-import com.happycomp.weatherforecast.util.Constants
+import com.happycomp.weatherforecast.model.extra.Constants
 import com.squareup.picasso.Picasso
 
 class WeatherDaysAdapter : RecyclerView.Adapter<WeatherDaysAdapter.ViewHolder>() {
@@ -30,7 +30,7 @@ class WeatherDaysAdapter : RecyclerView.Adapter<WeatherDaysAdapter.ViewHolder>()
 
             val icon = currentItem.weather.first().icon
             val uri = "http://openweathermap.org/img/wn/$icon@2x.png"
-            Picasso.get().load(uri).placeholder(R.drawable.bakar).error(R.drawable.bakar)
+            Picasso.get().load(uri).placeholder(R.drawable.clouds).error(R.drawable.clouds)
                 .into(binding.imageView)
         }
     }

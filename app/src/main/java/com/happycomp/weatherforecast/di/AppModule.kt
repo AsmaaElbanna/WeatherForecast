@@ -8,7 +8,7 @@ import com.happycomp.weatherforecast.model.room.data.AlarmDao
 import com.happycomp.weatherforecast.model.room.data.FavoritesDao
 import com.happycomp.weatherforecast.model.room.data.WeatherDataBase
 import com.happycomp.weatherforecast.model.room.repo.FavoriteRepo
-import com.happycomp.weatherforecast.util.Constants
+import com.happycomp.weatherforecast.model.extra.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

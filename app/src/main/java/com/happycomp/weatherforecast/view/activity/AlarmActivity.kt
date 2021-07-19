@@ -1,8 +1,7 @@
 package com.happycomp.weatherforecast.view.activity
 
-import android.app.Activity
-import android.app.DatePickerDialog
-import android.app.TimePickerDialog
+import android.app.*
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -11,7 +10,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.model.LatLng
 import com.happycomp.weatherforecast.alarmmanager.AlarmReciever
-import com.happycomp.weatherforecast.alarmmanager.AlarmService
 import com.happycomp.weatherforecast.databinding.ActivityAlarmBinding
 import com.happycomp.weatherforecast.model.enums.AlarmType
 import com.happycomp.weatherforecast.model.pojo.Alarm
@@ -23,7 +21,6 @@ import java.util.*
 class AlarmActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAlarmBinding
-    private lateinit var alarmService: AlarmService
     private lateinit var alarmReciever: AlarmReciever
     private lateinit var alarm: Alarm
 
@@ -61,7 +58,6 @@ class AlarmActivity : AppCompatActivity() {
                 lastID = it.last().id
         })
 
-        alarmService = AlarmService(applicationContext)
         alarmReciever = AlarmReciever()
 
         alarmVM.timeInMS.value = System.currentTimeMillis() + 86400000
@@ -90,7 +86,7 @@ class AlarmActivity : AppCompatActivity() {
         // type
         binding.rgType2.setOnCheckedChangeListener { _, checkedId ->
             val type = when (checkedId) {
-                binding.rbWind.id -> AlarmType.Wind.name
+                binding.rbClear.id -> AlarmType.Clear.name
                 binding.rbThunder.id -> AlarmType.ThunderStorm.name
                 binding.rbMistOrFogRB.id -> AlarmType.MistFog.name
                 else -> AlarmType.Rain.name
@@ -133,12 +129,7 @@ class AlarmActivity : AppCompatActivity() {
 
             alarmVM.addAlarm(alarm)
 
-//            setAlarm { timeInMillis ->
-//                alarmVM.time.value = alarmReciever.convertDate(timeInMillis)
-//                alarmVM.timeInMS.value = timeInMillis
-//            }
-
-            alarmService.setExactAlarm(alarmVM.timeInMS.value!!, alarm.id)
+            setExactAlarm(alarmVM.timeInMS.value!!, alarm.id)
 
             finish()
         }
@@ -173,5 +164,22 @@ class AlarmActivity : AppCompatActivity() {
                 this.get(Calendar.DAY_OF_MONTH),
             ).show()
         }
+    }
+
+    private fun setExactAlarm(timeInMillis: Long, id: Int) {
+        val reciever = Intent(applicationContext, AlarmReciever::class.java).apply {
+            putExtra("ID", id)
+        }
+
+        val pendingIntent =
+            PendingIntent.getBroadcast(
+                applicationContext,
+                id,
+                reciever,
+                PendingIntent.FLAG_UPDATE_CURRENT
+            )
+        val alarmManager =
+            applicationContext.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent)
     }
 }

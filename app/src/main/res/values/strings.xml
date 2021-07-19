@@ -36,6 +36,7 @@
     <string name="rain">Rain</string>
     <string name="snow">Snow</string>
     <string name="cloud">Cloud</string>
+    <string name="clear">Clear Sky</string>
     <string name="wind">Wind</string>
     <string name="thunder_storm">Thunder storm</string>
     <string name="mist_fog">Mist / Fog</string>
@@ -74,7 +75,7 @@
         <item>@string/rain</item>
         <item>@string/snow</item>
         <item>@string/cloud</item>
-        <item>@string/wind</item>
+        <item>@string/clear</item>
         <item>@string/thunder_storm</item>
         <item>@string/mist_fog</item>
     </string-array>

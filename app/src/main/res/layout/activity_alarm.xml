@@ -161,10 +161,10 @@
                             android:orientation="vertical">
 
                             <RadioButton
-                                android:id="@+id/rbWind"
+                                android:id="@+id/rbClear"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/wind" />
+                                android:text="@string/clear" />
 
                             <RadioButton
                                 android:id="@+id/rbThunder"

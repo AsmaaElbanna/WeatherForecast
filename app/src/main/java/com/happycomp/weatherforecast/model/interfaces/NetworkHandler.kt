@@ -10,6 +10,6 @@ interface NetworkHandler {
     fun onSuccess(){
         hideIndicator()
     }
-    fun showIndicator()
-    fun hideIndicator()
+    fun showIndicator(){}
+    fun hideIndicator(){}
 }
