@@ -1,7 +1,5 @@
 package com.happycomp.weatherforecast.view.fragment
 
-import android.Manifest
-import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -12,7 +10,6 @@ import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.happycomp.weatherforecast.databinding.FragmentSettingsBinding
@@ -25,16 +22,6 @@ class SettingsFragment : Fragment() {
 
     private val receiver: GpsStatusReceiver = GpsStatusReceiver()
 
-    @SuppressLint("MissingPermission")
-    private val resultLocationPermission =
-        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { result ->
-            if (result.containsValue(true)) {
-
-                if (!locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
-                    buildAlertMessageNoGps()
-            }
-        }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,10 +30,18 @@ class SettingsFragment : Fragment() {
         locationManager =
             requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
-        binding.gpsSwitch.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                checkPermission()
-            }
+        binding.gpsSwitch.isChecked =
+            locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+
+        binding.gpsSwitch.setOnClickListener {
+            val isChecked = binding.gpsSwitch.isChecked
+
+            var message = "Your GPS seems to be disabled, do you want to enable it?"
+            if (!isChecked)
+                message = "Your GPS is currently enabled, do you want to disable it?"
+            binding.gpsSwitch.isChecked = !binding.gpsSwitch.isChecked
+            buildAlertMessageNoGps(message)
+
         }
 
         binding.tempUnitContainer.setOnClickListener {
@@ -58,26 +53,21 @@ class SettingsFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        requireActivity().registerReceiver(receiver, IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION))
-    }
-
-    override fun onPause() {
-        super.onPause()
-        requireActivity().unregisterReceiver(receiver);
-    }
-
-    private fun checkPermission() {
-        val permissions = arrayOf(
-            Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.ACCESS_FINE_LOCATION
+        requireActivity().registerReceiver(
+            receiver,
+            IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION)
         )
-        resultLocationPermission.launch(permissions)
     }
 
-    private fun buildAlertMessageNoGps() {
+    override fun onDestroy() {
+        super.onDestroy()
+        requireActivity().unregisterReceiver(receiver)
+    }
+
+    private fun buildAlertMessageNoGps(message: String) {
         val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
         val alertDialog =
-            builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
+            builder.setMessage(message)
                 .setCancelable(false)
                 .setPositiveButton(
                     "Yes"

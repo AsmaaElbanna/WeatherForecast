@@ -7,6 +7,9 @@ import com.happycomp.weatherforecast.model.pojo.BaseWeather
 import com.happycomp.weatherforecast.model.retrofit.WeatherInterface
 import com.happycomp.weatherforecast.model.room.data.FavoritesDao
 import com.happycomp.weatherforecast.model.extra.Constants
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class FavoriteRepo @Inject constructor(
@@ -30,13 +33,19 @@ class FavoriteRepo @Inject constructor(
                 if (response.body() != null) {
                     val baseWeather: BaseWeather = response.body()!!
                     addFavorite(baseWeather)
-                    networkHandler.onSuccess()
+                    GlobalScope.launch(Dispatchers.Main) {
+                        networkHandler.onSuccess()
+                    }
                 }
             } else {
-                networkHandler.onErrorOccurred()
+                GlobalScope.launch(Dispatchers.Main) {
+                    networkHandler.onErrorOccurred()
+                }
             }
         } catch (e: Exception) {
-            networkHandler.onConnectionFailed()
+            GlobalScope.launch(Dispatchers.Main) {
+                networkHandler.onConnectionFailed()
+            }
         }
     }
 
