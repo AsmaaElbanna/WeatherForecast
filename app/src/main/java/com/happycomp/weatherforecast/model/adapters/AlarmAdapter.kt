@@ -49,7 +49,7 @@ class AlarmAdapter @Inject constructor() :
             val alarmManager = binding.root.context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
             val myIntent = Intent(binding.root.context, AlarmReciever::class.java)
             val pendingIntent = PendingIntent.getBroadcast(
-                binding.root.context,AlarmService.listOfAlarmsIDs[0], myIntent, 0
+                binding.root.context,alarm.id, myIntent, 0
             )
             alarmManager.cancel(pendingIntent)
 

@@ -22,7 +22,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var binding: ActivityMapsBinding
     private lateinit var mMap: GoogleMap
 
-    // Current Location of Egypt
+    // Current Location of Egypt   30.0595581,31.223445
     private var currentLocation: LatLng = LatLng(30.0595581, 31.223445)
 
     override fun onCreate(savedInstanceState: Bundle?) {
