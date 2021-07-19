@@ -29,32 +29,21 @@
                 android:layout_height="0dp">
 
 
-                <TextView
-                    android:id="@+id/tvSelectedLocatioon"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                <ImageButton
+                    android:id="@+id/set_exact_alarm"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_marginTop="8dp"
-                    android:text="@{alarmVM.address}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:src="@drawable/ic_baseline_calendar_today_24"
+                    app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
                     app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
 
-                <Button
-                    android:id="@+id/btnLocation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:text="Location"
-                    app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
-                    app:layout_constraintStart_toStartOf="@+id/textInputLayout"
-                    app:layout_constraintTop_toBottomOf="@+id/tvSelectedLocatioon" />
-
                 <LinearLayout
-                    android:id="@+id/alarmSoundContainer"
+                    android:id="@+id/linearLayout3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/background_border"
                     android:orientation="vertical"
@@ -62,57 +51,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
-
-                    <TextView
-                        android:id="@+id/textView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/alarm_sound" />
-
-                    <RadioGroup
-                        android:id="@+id/rgAlarmSound"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:checkedButton="@id/rbNotification"
-                        android:orientation="horizontal"
-                        android:weightSum="2">
-
-                        <RadioButton
-                            android:id="@+id/rbNotification"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/notification" />
-
-                        <RadioButton
-                            android:id="@+id/rbAlarm"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/alarm" />
-                    </RadioGroup>
-                </LinearLayout>
-
-                <ImageButton
-                    android:id="@+id/set_exact_alarm"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="8dp"
-                    android:src="@drawable/ic_baseline_calendar_today_24"
-                    app:layout_constraintEnd_toEndOf="@+id/alarmSoundContainer"
-                    app:layout_constraintTop_toBottomOf="@+id/alarmSoundContainer" />
-
-                <LinearLayout
-                    android:id="@+id/linearLayout3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/background_border"
-                    android:orientation="vertical"
-                    android:padding="10dp"
-                    app:layout_constraintEnd_toEndOf="@+id/set_exact_alarm"
-                    app:layout_constraintStart_toStartOf="@+id/dateAndTime"
-                    app:layout_constraintTop_toBottomOf="@+id/set_exact_alarm">
 
                     <TextView
                         android:id="@+id/textView2"
@@ -199,21 +137,43 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/set_description"
+                        android:text="@={alarmVM.desc}"
                         android:minLines="3"
                         android:maxLength="150"
                         android:padding="10dp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
-                   android:id="@+id/dateAndTime"
+                    android:id="@+id/dateAndTime"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:text="@{alarmVM.time}"
                     app:layout_constraintBottom_toBottomOf="@+id/set_exact_alarm"
                     app:layout_constraintEnd_toStartOf="@+id/set_exact_alarm"
-                    app:layout_constraintStart_toStartOf="@+id/alarmSoundContainer"
-                    app:layout_constraintTop_toTopOf="@+id/set_exact_alarm" />
+                    app:layout_constraintStart_toStartOf="@+id/textInputLayout"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+
+                <TextView
+                    android:id="@+id/tvSelectedLocatioon"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{alarmVM.address}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/btnLocation"
+                    app:layout_constraintStart_toStartOf="@+id/textInputLayout"
+                    app:layout_constraintTop_toTopOf="@+id/btnLocation" />
+
+                <ImageButton
+                    android:id="@+id/btnLocation"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/ic_location"
+                    android:textAllCaps="false"
+                    app:layout_constraintEnd_toEndOf="@+id/set_exact_alarm"
+                    app:layout_constraintTop_toBottomOf="@+id/set_exact_alarm" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 

@@ -4,7 +4,6 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.graphics.BitmapFactory
-import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.happycomp.weatherforecast.R
 
@@ -18,13 +17,12 @@ class Notifications(val context: Context) {
     }
 
     fun createNotificationChannelID(id: String, name: String, channelDescription: String) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val importanceHigh = NotificationManager.IMPORTANCE_HIGH
-            val channel = NotificationChannel(id, name, importanceHigh).apply {
-                description = channelDescription
-            }
-            notificationManager?.createNotificationChannel(channel)
+
+        val importanceHigh = NotificationManager.IMPORTANCE_HIGH
+        val channel = NotificationChannel(id, name, importanceHigh).apply {
+            description = channelDescription
         }
+        notificationManager?.createNotificationChannel(channel)
     }
 
     fun displayNotification(contentText: String) {

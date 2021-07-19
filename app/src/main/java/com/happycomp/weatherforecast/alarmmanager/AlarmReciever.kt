@@ -65,7 +65,8 @@ class AlarmReciever : BroadcastReceiver() {
                                 true
                             )
                         )
-                            displayNotification(weatherData.current.weather.first().description)
+
+                            displayNotification("The weather today will be ${weatherData.current.weather.first().description}")
                     }
                 }
             } catch (e: Exception) {

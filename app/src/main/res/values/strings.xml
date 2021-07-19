@@ -69,6 +69,7 @@
     <string name="details">Details</string>
     <string name="hours">Hours</string>
     <string name="_7_days">7-Days</string>
+    <string name="location">Location</string>
 
 
     <string-array name="alarm_type">
