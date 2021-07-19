@@ -4,20 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
-        <import type="com.happycomp.weatherforecast.model.pojo.Daily" />
-
-        <import type="android.text.format.DateFormat" />
-
+        <import type="com.happycomp.weatherforecast.model.pojo.Daily"/>
+        <import type="android.text.format.DateFormat"/>
         <variable
             name="weatherDay"
             type="Daily" />
 
+        <variable
+            name="userUnits"
+            type="com.happycomp.weatherforecast.model.pojo.UserUnits" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="110dp"
-        android:layout_height="wrap_content"
+        android:layout_height="220dp"
         android:layout_gravity="center"
         android:paddingLeft="5dp"
         android:paddingTop="10dp"
@@ -28,7 +28,7 @@
             android:id="@+id/day_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{DateFormat.format(`EEEE`, weatherDay.dt*1000)}"
+            android:text="@{DateFormat.format(`EEEE`, (long)weatherDay.dt * 1000)}"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="@{@string/country_temp((int)weatherDay.temp.min)+`/`+@string/country_temp((int)weatherDay.temp.max)}"
+            android:text="@{@string/country_temp((int)weatherDay.temp.min) + userUnits.tempUnit +`/`+@string/country_temp((int)weatherDay.temp.max) + userUnits.tempUnit}"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -53,15 +53,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/min_max_text_view"
-            tools:srcCompat="@drawable/ic_baseline_favorite_24" />
+            tools:srcCompat="@drawable/ic_baseline_favorite_24"
+            android:contentDescription="@string/todo" />
 
         <TextView
             android:id="@+id/status_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:lines="2"
-            android:gravity="center"
             android:text="@{weatherDay.weather[0].description}"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
@@ -73,7 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="@{@string/country_temp((int)weatherDay.temp.day)}"
+            android:text="@{@string/country_temp((int)weatherDay.temp.day) + userUnits.tempUnit}"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -86,7 +85,6 @@
             android:layout_marginTop="10dp"
             android:text="@{@string/uvi(weatherDay.uvi)}"
             android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/temp_text_view" />

@@ -4,9 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.text.format.DateFormat"/>
         <variable
             name="weather"
             type="com.happycomp.weatherforecast.model.pojo.BaseWeather" />
+
+        <variable
+            name="userUnits"
+            type="com.happycomp.weatherforecast.model.pojo.UserUnits" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -39,10 +44,10 @@
                     android:id="@+id/tvTemp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:text="@{@string/country_temp((int)weather.current.temp)}"
+                    android:layout_marginTop="16dp"
+                    android:text="@{@string/country_temp((int)weather.current.temp) + userUnits.tempUnit}"
                     android:textColor="@color/white"
-                    android:textSize="60sp"
+                    android:textSize="34sp"
                     app:layout_constraintEnd_toEndOf="@+id/tvLocation"
                     app:layout_constraintStart_toStartOf="@+id/tvLocation"
                     app:layout_constraintTop_toBottomOf="@+id/tvLocation" />
@@ -51,7 +56,7 @@
                     android:id="@+id/tvStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="16dp"
                     android:text="@{weather.current.weather.get(0).description}"
                     android:textColor="@color/white"
                     android:textSize="22sp"
@@ -79,7 +84,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="Details"
+                        android:text="@string/details"
                         android:textColor="@color/white" />
 
                     <View
@@ -87,7 +92,6 @@
                         android:layout_height="1dp"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-
                         android:background="@android:color/darker_gray" />
 
                 </LinearLayout>
@@ -97,7 +101,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="12:45 PM Fri 23/4/2021"
+                    android:text="@{DateFormat.format(`hh:mm a EE dd/MM/yyyy`, (long)weather.current.dt * 1000)}"
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -114,20 +118,19 @@
                         android:id="@+id/textView7"
                         android:layout_width="60dp"
                         android:layout_height="30dp"
-                        android:layout_marginStart="16dp"
+                        android:layout_marginStart="4dp"
                         android:layout_marginTop="10dp"
                         android:gravity="center_vertical"
                         android:text="@string/cloud"
                         android:textColor="@color/white"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageView"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/tvCloud"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:text="@{`` + weather.current.clouds}"
+                        android:text="@{weather.current.clouds + ` ` + userUnits.clouds}"
                         android:textColor="@color/white"
                         app:layout_constraintBottom_toBottomOf="@+id/textView7"
                         app:layout_constraintStart_toEndOf="@+id/textView7"
@@ -141,30 +144,29 @@
                         android:layout_marginTop="10dp"
                         android:layout_weight="1"
                         android:background="@android:color/darker_gray"
-                        app:layout_constraintEnd_toEndOf="@+id/imageView5"
-                        app:layout_constraintStart_toStartOf="@+id/textView7"
+                        android:visibility="invisible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
                     <TextView
                         android:id="@+id/textView9"
                         android:layout_width="60dp"
                         android:layout_height="30dp"
-                        android:layout_marginStart="16dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:gravity="center_vertical"
                         android:text="@string/humidity"
                         android:textColor="@color/white"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/textView7"
                         app:layout_constraintTop_toBottomOf="@+id/view4" />
 
                     <TextView
                         android:id="@+id/tvHumidity"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:text="@{`` + weather.current.humidity}"
+                        android:text="@{weather.current.humidity + ` ` + userUnits.humidity}"
                         android:textColor="@color/white"
                         app:layout_constraintBottom_toBottomOf="@+id/textView9"
                         app:layout_constraintStart_toEndOf="@+id/textView9"
@@ -179,6 +181,7 @@
                         android:layout_marginBottom="7dp"
                         android:layout_weight="1"
                         android:background="@android:color/darker_gray"
+                        android:visibility="invisible"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView4"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -188,20 +191,19 @@
                         android:id="@+id/textView11"
                         android:layout_width="60dp"
                         android:layout_height="30dp"
-                        android:layout_marginStart="16dp"
+                        android:layout_marginStart="4dp"
                         android:gravity="center_vertical"
                         android:text="@string/wind"
                         android:textColor="@color/white"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView"
-                        app:layout_constraintStart_toEndOf="@+id/view5"
+                        app:layout_constraintStart_toEndOf="@+id/imageView5"
                         app:layout_constraintTop_toTopOf="@+id/imageView" />
 
                     <TextView
                         android:id="@+id/tvWind"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:text="@{`` + weather.current.wind_speed}"
+                        android:text="@{weather.current.wind_speed + ` ` + userUnits.speedUnits}"
                         android:textColor="@color/white"
                         app:layout_constraintBottom_toBottomOf="@+id/textView11"
                         app:layout_constraintStart_toEndOf="@+id/textView11"
@@ -211,20 +213,18 @@
                         android:id="@+id/textView13"
                         android:layout_width="60dp"
                         android:layout_height="30dp"
-                        android:layout_marginStart="16dp"
                         android:gravity="center_vertical"
                         android:text="@string/pressure"
                         android:textColor="@color/white"
                         app:layout_constraintBottom_toBottomOf="@+id/imageView4"
-                        app:layout_constraintStart_toEndOf="@+id/view5"
+                        app:layout_constraintStart_toStartOf="@+id/textView11"
                         app:layout_constraintTop_toTopOf="@+id/imageView4" />
 
                     <TextView
                         android:id="@+id/tvPressure"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:text="@{`` + weather.current.pressure}"
+                        android:text="@{weather.current.pressure + ` ` + userUnits.pressure}"
                         android:textColor="@color/white"
                         app:layout_constraintBottom_toBottomOf="@+id/textView13"
                         app:layout_constraintStart_toEndOf="@+id/textView13"
@@ -232,41 +232,44 @@
 
                     <ImageView
                         android:id="@+id/imageView"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginEnd="16dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="8dp"
+                        android:contentDescription="@string/todo"
                         app:layout_constraintBottom_toBottomOf="@+id/textView7"
-                        app:layout_constraintEnd_toStartOf="@+id/view5"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/textView7"
                         app:srcCompat="@drawable/clouds" />
 
                     <ImageView
                         android:id="@+id/imageView4"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginEnd="16dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:contentDescription="@string/todo"
                         app:layout_constraintBottom_toBottomOf="@+id/textView9"
-                        app:layout_constraintEnd_toStartOf="@+id/view5"
+                        app:layout_constraintEnd_toEndOf="@+id/imageView"
+                        app:layout_constraintStart_toStartOf="@+id/imageView"
                         app:layout_constraintTop_toTopOf="@+id/textView9"
                         app:srcCompat="@drawable/humidityicon" />
 
                     <ImageView
                         android:id="@+id/imageView5"
-                        android:layout_width="30dp"
+                        android:layout_width="25dp"
                         android:layout_height="30dp"
-                        android:layout_marginEnd="16dp"
+                        android:layout_marginStart="8dp"
+                        android:contentDescription="@string/todo"
                         app:layout_constraintBottom_toBottomOf="@+id/textView11"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/view5"
                         app:layout_constraintTop_toTopOf="@+id/textView11"
                         app:srcCompat="@drawable/wind" />
 
                     <ImageView
                         android:id="@+id/imageView6"
-                        android:layout_width="30dp"
+                        android:layout_width="25dp"
                         android:layout_height="30dp"
-                        android:layout_marginEnd="16dp"
+                        android:contentDescription="@string/todo"
                         app:layout_constraintBottom_toBottomOf="@+id/textView13"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/imageView5"
                         app:layout_constraintTop_toTopOf="@+id/textView13"
                         app:srcCompat="@drawable/pressureicon" />
 
@@ -292,9 +295,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:textColor="@color/white"
                         android:gravity="center"
-                        android:text="Hours"
-                        android:textColor="@color/white" />
+                        android:text="@string/hours" />
 
                     <View
                         android:layout_width="match_parent"
@@ -337,8 +340,8 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="7-Days"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:text="@string/_7_days" />
 
                     <View
                         android:layout_width="match_parent"

@@ -9,6 +9,9 @@
         <variable
             name="weatherHour"
             type="Hourly"/>
+        <variable
+            name="userUnits"
+            type="com.happycomp.weatherforecast.model.pojo.UserUnits" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
-                android:text="@{@string/country_temp((int)weatherHour.temp)}"
+                android:text="@{@string/country_temp((int)weatherHour.temp) + userUnits.tempUnit}"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +48,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                tools:srcCompat="@drawable/ic_baseline_home_24" />
+                tools:srcCompat="@drawable/ic_baseline_home_24"
+                android:contentDescription="@string/todo" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView

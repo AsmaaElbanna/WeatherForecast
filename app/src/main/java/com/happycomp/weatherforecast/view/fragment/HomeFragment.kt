@@ -6,8 +6,9 @@ import android.content.Context
 import android.content.Intent
 import android.location.LocationManager
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.provider.Settings
-import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -61,14 +62,23 @@ class HomeFragment : Fragment(), NetworkHandler {
 
     private fun buildAlertMessageNoGps() {
         val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
-        builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
+        val alertDialog = builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
             .setCancelable(false)
             .setPositiveButton(
                 "Yes"
             ) { _, _ -> startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)) }
             .setNegativeButton(
                 "No"
-            ) { dialog, _ -> dialog.cancel() }.create().show()
+            ) { dialog, _ -> dialog.cancel() }.create()
+
+        alertDialog.show()
+
+        Handler(Looper.getMainLooper()).postDelayed(Runnable {
+            if (alertDialog.isShowing) {
+                alertDialog.dismiss()
+            }
+        }, 3000)
+
     }
 
     override fun onCreateView(
@@ -84,11 +94,10 @@ class HomeFragment : Fragment(), NetworkHandler {
         homeVM.loadLastResult(requireContext()).also {
             if (it != null) {
                 binding.weather = it
+                binding.userUnits = Constants.userUnits
                 weatherHoursAdapter.setData(it.hourly!!)
                 weatherDaysAdapter.setData(it.daily!!)
                 homeVM.lastKnownLocation = LatLng(it.lat, it.lon)
-                binding.tvTime.text = DateFormat.format("hh:mm a EE dd/MM/yyyy", it.current.dt * 1000.toLong())
-
             }
         }
 
@@ -97,10 +106,11 @@ class HomeFragment : Fragment(), NetworkHandler {
             weatherHoursAdapter.setData(it.hourly!!)
             weatherDaysAdapter.setData(it.daily!!)
             homeVM.saveAsLastResult(requireContext(), it)
+            binding.userUnits = Constants.userUnits
         })
 
         Constants.currentUnits.observe(viewLifecycleOwner, {
-            if (homeVM.weatherData.value != null){
+            if (homeVM.weatherData.value != null) {
                 homeVM.getWeather()
             }
         })

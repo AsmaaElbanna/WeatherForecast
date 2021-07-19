@@ -2,7 +2,6 @@ package com.happycomp.weatherforecast.model.pojo
 
 import androidx.room.Entity
 import androidx.room.Ignore
-import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "favorites", primaryKeys = ["lat", "lon"])

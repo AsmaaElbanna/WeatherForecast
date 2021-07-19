@@ -4,6 +4,8 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.Address
+import android.location.Geocoder
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -16,6 +18,8 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.happycomp.weatherforecast.R
 import com.happycomp.weatherforecast.databinding.ActivityMapsBinding
+import java.io.IOException
+import java.util.*
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -35,6 +39,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         binding.btnConfirm.setOnClickListener {
             setResult(Activity.RESULT_OK, Intent().apply {
                 putExtra(SELECTED_LOCATION, currentLocation)
+                putExtra(SELECTED_ADDRESS, getAddress(currentLocation))
             })
             finish()
         }
@@ -65,6 +70,17 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 mapFragment.getMapAsync(this)
             }
 
+        }
+    }
+
+    private fun getAddress(location: LatLng): String? {
+        return try {
+            val geocoder = Geocoder(this, Locale.getDefault())
+            val addresses: List<Address>? =
+                geocoder.getFromLocation(location.latitude, location.longitude, 1)
+            addresses?.get(0)?.getAddressLine(0)
+        } catch (ex: Exception){
+            null
         }
     }
 
@@ -107,5 +123,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     companion object {
         private const val REQUEST_CODE = 101
         const val SELECTED_LOCATION = "SELECTED_LOCATION"
+        const val SELECTED_ADDRESS = "SELECTED_ADDRESS"
     }
 }

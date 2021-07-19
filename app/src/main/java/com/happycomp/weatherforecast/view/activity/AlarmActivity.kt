@@ -1,10 +1,15 @@
 package com.happycomp.weatherforecast.view.activity
 
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.maps.model.LatLng
 import com.happycomp.weatherforecast.alarmmanager.AlarmReciever
 import com.happycomp.weatherforecast.alarmmanager.AlarmService
 import com.happycomp.weatherforecast.databinding.ActivityAlarmBinding
@@ -24,7 +29,25 @@ class AlarmActivity : AppCompatActivity() {
 
     private val alarmVM: AlarmVM by viewModels()
 
-    private var lastID = 1
+    private var lastID = 0
+
+    private val resultContractMap =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                val intent = it.data
+                if (intent != null) {
+                    val location = intent.getParcelableExtra<LatLng>(MapsActivity.SELECTED_LOCATION)
+                    val address = intent.getStringExtra(MapsActivity.SELECTED_ADDRESS)
+                    if (location != null && address != null) {
+                        alarmVM.location = location
+                        alarmVM.address = address
+                        binding.tvSelectedLocatioon.text = address
+                    } else {
+                        Toast.makeText(this, "Wrong Location", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,6 +114,10 @@ class AlarmActivity : AppCompatActivity() {
             }
         }
 
+        binding.btnLocation.setOnClickListener {
+            resultContractMap.launch(Intent(this, MapsActivity::class.java))
+        }
+
         binding.btnSave.setOnClickListener {
 
             alarm = Alarm(
@@ -99,6 +126,8 @@ class AlarmActivity : AppCompatActivity() {
                 alarmVM.timeInMS.value!!,
                 alarmVM.type.value!!,
                 alarmVM.desc.get()!!,
+                alarmVM.location,
+                alarmVM.address,
                 ++lastID
             )
 
@@ -113,24 +142,6 @@ class AlarmActivity : AppCompatActivity() {
 
             finish()
         }
-
-        // alarm=Alarm()
-//        binding.setRepetitive.setOnClickListener{
-//            setAlarm { alarmService.setRepetitiveAlarm(it) }
-//        }
-//
-//        binding.cancelAlarm.setOnClickListener{
-//            for(value in AlarmService.listOfAlarmsIDs){
-//                Toast.makeText(this, "id : $value", Toast.LENGTH_SHORT).show()
-//
-//            }
-//            val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-//            val myIntent = Intent(applicationContext, AlarmReciever::class.java)
-//            val pendingIntent = PendingIntent.getBroadcast(
-//                applicationContext,AlarmService.listOfAlarmsIDs[0], myIntent, 0
-//            )
-//            alarmManager.cancel(pendingIntent)
-//        }
     }
 
     private fun setAlarm(callback: (Long) -> Unit) {
@@ -163,5 +174,4 @@ class AlarmActivity : AppCompatActivity() {
             ).show()
         }
     }
-
 }
