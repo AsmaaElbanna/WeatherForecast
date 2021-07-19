@@ -11,5 +11,5 @@ data class Alarm(
     val type: String,
     val desc: String,
     @PrimaryKey(autoGenerate = false)
-    var id: Int = 1,
+    var id: Int = 0,
 )

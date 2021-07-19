@@ -13,11 +13,11 @@ import java.util.concurrent.TimeUnit
 class AlarmReciever : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         val timeInMillis = intent.getLongExtra(Constants.EXTRA_EXACT_ALARM_TIME, 0L)
+        buildNotification(context, title = "set exact time ", convertDate(timeInMillis))
 
-        when (intent.action) {
-            Constants.ACTION_SET_EXACT_ALARM -> {
-                buildNotification(context, title = "set exact time ", convertDate(timeInMillis))
-            }
+//        when (intent.action) {
+//            Constants.ACTION_SET_EXACT_ALARM -> {
+//            }
 
 //            Constants.ACTION_SET_REPETITIVE_ALARM -> {
 //                val cal = Calendar.getInstance().apply {
@@ -26,7 +26,7 @@ class AlarmReciever : BroadcastReceiver() {
 //                AlarmService(context).setRepetitiveAlarm(cal.timeInMillis)
 //                buildNotification(context, "set Repetitive ", convertDate(timeInMillis))
 //            }
-        }
+//        }
     }
 
     private fun buildNotification(context: Context, title: String, msg: String) {

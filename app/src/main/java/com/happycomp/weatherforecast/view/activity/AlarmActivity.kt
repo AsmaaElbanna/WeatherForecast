@@ -38,7 +38,7 @@ class AlarmActivity : AppCompatActivity() {
                 lastID = it.last().id
         })
 
-        alarmService = AlarmService(this)
+        alarmService = AlarmService(applicationContext)
         alarmReciever = AlarmReciever()
 
         alarmVM.timeInMS.value = System.currentTimeMillis() + 86400000
