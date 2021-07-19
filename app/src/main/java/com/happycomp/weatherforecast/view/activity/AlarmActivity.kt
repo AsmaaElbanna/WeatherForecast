@@ -133,10 +133,10 @@ class AlarmActivity : AppCompatActivity() {
 
             alarmVM.addAlarm(alarm)
 
-            setAlarm { timeInMillis ->
-                alarmVM.time.value = alarmReciever.convertDate(timeInMillis)
-                alarmVM.timeInMS.value = timeInMillis
-            }
+//            setAlarm { timeInMillis ->
+//                alarmVM.time.value = alarmReciever.convertDate(timeInMillis)
+//                alarmVM.timeInMS.value = timeInMillis
+//            }
 
             alarmService.setExactAlarm(alarmVM.timeInMS.value!!, alarm.id)
 
