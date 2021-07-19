@@ -5,69 +5,43 @@ import android.content.Context
 import android.content.Intent
 import android.text.format.DateFormat
 import android.util.Log
-import android.widget.Toast
-import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.maps.model.LatLng
 import com.happycomp.weatherforecast.R
 import com.happycomp.weatherforecast.model.enums.Units
-import com.happycomp.weatherforecast.model.pojo.BaseWeather
+import com.happycomp.weatherforecast.model.pojo.Alarm
 import com.happycomp.weatherforecast.model.retrofit.WeatherInterface
-import com.happycomp.weatherforecast.util.Constants
-import dagger.hilt.EntryPoint
+import com.happycomp.weatherforecast.model.room.data.AlarmDao
+import com.happycomp.weatherforecast.viewmodel.AlarmVM
 import dagger.hilt.android.AndroidEntryPoint
-import io.karn.notify.Notify
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import java.util.*
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class AlarmReciever : BroadcastReceiver() {
 
     @Inject
+    lateinit var alarmDao: AlarmDao
+    @Inject
     lateinit var weatherInterface: WeatherInterface
 
-//    val weatherInterface: WeatherInterface = Retrofit.Builder()
-//        .baseUrl("https://api.openweathermap.org")
-//        .addConverterFactory(GsonConverterFactory.create())
-//        .build()
-//        .create(WeatherInterface::class.java)
     private lateinit var context: Context
+    private lateinit var alarmVM: AlarmVM
+    private lateinit var alarm: Alarm
+
     override fun onReceive(context: Context, intent: Intent) {
-//        val timeInMillis = intent.getLongExtra(Constants.EXTRA_EXACT_ALARM_TIME, 0L)
-//        buildNotification(context, title = "set exact time ", convertDate(timeInMillis))
-
         this.context = context
-        getWeather()
 
-        //displayNotification("weather will be good")
+        alarmVM = AlarmVM(alarmDao)
 
+        alarm = alarmVM.getAlarmByID(intent.getIntExtra("ID", 0))
 
-//        val notifications = Notifications(context)
-//        notifications.createNotificationChannelID(context.resources.getString(R.string.notification_Channel_ID),
-//            "Weather forecast", "hhhhhhhhhhhhhhhhhhhhhhhhh")
-//        notifications.displayNotification("The weather is good")
-
-
-    }
-
-    private fun buildNotification(context: Context, title: String, msg: String) {
-        Notify
-            .with(context)
-            .content {
-                this.title = title
-                this.text = "it was rain at $msg"
-            }
-            .show()
+        getWeather(LatLng(alarm.location.latitude, alarm.location.longitude))
     }
 
     fun convertDate(timeInMillis: Long): String =
         DateFormat.format("EE dd/MM/yyyy, hh:mm:ss a", timeInMillis).toString()
-
 
     private fun getWeather(location: LatLng = LatLng(30.0595581, 31.223445)) {
         GlobalScope.launch {
@@ -81,6 +55,7 @@ class AlarmReciever : BroadcastReceiver() {
                 if (response.isSuccessful && response.body() != null) {
                     GlobalScope.launch(Dispatchers.Main) {
                         val weatherData = response.body()
+                        alarmVM.deleteByID(alarm.id)
                         displayNotification(weatherData!!.current.weather[0].description)
                     }
                 }
@@ -94,7 +69,7 @@ class AlarmReciever : BroadcastReceiver() {
         }
     }
 
-    fun displayNotification(contentText: String) {
+    private fun displayNotification(contentText: String) {
         val notifications = Notifications(context)
         notifications.createNotificationChannelID(
             context.resources.getString(R.string.notification_Channel_ID),
