@@ -99,6 +99,7 @@
                     android:layout_height="50dp"
                     android:layout_marginTop="8dp"
                     android:src="@drawable/ic_baseline_calendar_today_24"
+                    app:tint="@color/teal_700"
                     app:layout_constraintEnd_toEndOf="@+id/alarmSoundContainer"
                     app:layout_constraintTop_toBottomOf="@+id/alarmSoundContainer" />
 
