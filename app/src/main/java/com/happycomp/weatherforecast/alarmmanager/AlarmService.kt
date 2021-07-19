@@ -13,45 +13,16 @@ class AlarmService(private val context: Context) {
 
     fun setExactAlarm(timeInMillis: Long, id: Int) {
         val reciever = Intent(context, AlarmReciever::class.java).apply {
-//            action = Constants.ACTION_SET_EXACT_ALARM
             putExtra(Constants.EXTRA_EXACT_ALARM_TIME, timeInMillis)
         }
 
-        val pendingIntent = PendingIntent.getBroadcast(context, id, reciever, PendingIntent.FLAG_UPDATE_CURRENT)
+        val pendingIntent =
+            PendingIntent.getBroadcast(context, id, reciever, PendingIntent.FLAG_UPDATE_CURRENT)
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent)
-//        Toast.makeText(appContext, "$id", Toast.LENGTH_SHORT).show()
-
-//        setAlarm(
-//            timeInMillis,
-//            getPendingIntent(
-//                getIntent().apply {
-//                    action = Constants.ACTION_SET_EXACT_ALARM
-//                    putExtra(Constants.EXTRA_EXACT_ALARM_TIME, timeInMillis)
-//                }, id
-//            )
-//        )
 
     }
 
-//    private fun setAlarm(timeInMillis: Long, pendingIntent: PendingIntent) {
-//        alarmManager?.let {
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//                alarmManager.setExactAndAllowWhileIdle(
-//                    AlarmManager.RTC_WAKEUP,
-//                    timeInMillis,
-//                    pendingIntent
-//                )
-//            } else {
-//                alarmManager.setExact(
-//                    AlarmManager.RTC_WAKEUP,
-//                    timeInMillis,
-//                    pendingIntent
-//                )
-//            }
-//        }
-//    }
-//
 
     private fun getIntent(): Intent = Intent(context, AlarmReciever::class.java)
 
