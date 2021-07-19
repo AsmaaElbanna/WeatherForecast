@@ -8,6 +8,7 @@ import android.os.Build
 import android.widget.Toast
 import com.happycomp.weatherforecast.util.Constants
 import com.happycomp.weatherforecast.util.RandomInUtil
+import dagger.hilt.android.AndroidEntryPoint
 
 class AlarmService(private val context: Context) {
 
