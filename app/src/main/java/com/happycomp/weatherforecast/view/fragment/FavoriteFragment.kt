@@ -72,8 +72,7 @@ class FavoriteFragment : Fragment(), SwipeListener, NetworkHandler {
         })
 
         binding.fabAdd.setOnClickListener {
-            val intent = Intent(activity, MapsActivity::class.java)
-            resultContractMap.launch(intent)
+            resultContractMap.launch(Intent(activity, MapsActivity::class.java))
         }
 
         return binding.root

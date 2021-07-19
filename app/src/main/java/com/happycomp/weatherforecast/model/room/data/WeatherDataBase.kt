@@ -6,7 +6,7 @@ import androidx.room.TypeConverters
 import com.happycomp.weatherforecast.model.pojo.Alarm
 import com.happycomp.weatherforecast.model.pojo.BaseWeather
 
-@Database(entities = [BaseWeather::class, Alarm::class], version = 6, exportSchema = false)
+@Database(entities = [BaseWeather::class, Alarm::class], version = 7, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class WeatherDataBase: RoomDatabase() {
     abstract val favoritesDao: FavoritesDao

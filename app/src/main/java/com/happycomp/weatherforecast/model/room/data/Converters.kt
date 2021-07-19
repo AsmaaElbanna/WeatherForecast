@@ -1,29 +1,30 @@
 package com.happycomp.weatherforecast.model.room.data
 
 import androidx.room.TypeConverter
+import com.google.android.gms.maps.model.LatLng
 import com.google.gson.Gson
 import com.happycomp.weatherforecast.model.pojo.Current
 import com.happycomp.weatherforecast.model.pojo.Weather
 
 class Converters {
     @TypeConverter
-    fun currentToString(current: Current): String {
-        return Gson().toJson(current)
-    }
+    fun currentToString(current: Current): String = Gson().toJson(current)
 
     @TypeConverter
-    fun stringToCurrent(currentString: String): Current {
-        return Gson().fromJson(currentString, Current::class.java)
-    }
+    fun stringToCurrent(currentString: String): Current =
+        Gson().fromJson(currentString, Current::class.java)
 
     @TypeConverter
-    fun weatherToString(weather: Weather): String {
-        return Gson().toJson(weather)
-    }
+    fun locationToString(location: LatLng): String = Gson().toJson(location)
 
     @TypeConverter
-    fun stringToWeather(weatherString: String): Weather {
-        return Gson().fromJson(weatherString, Weather::class.java)
-    }
+    fun stringToLocation(locationString: String): LatLng =
+        Gson().fromJson(locationString, LatLng::class.java)
 
+    @TypeConverter
+    fun weatherToString(weather: Weather): String = Gson().toJson(weather)
+
+    @TypeConverter
+    fun stringToWeather(weatherString: String): Weather =
+        Gson().fromJson(weatherString, Weather::class.java)
 }

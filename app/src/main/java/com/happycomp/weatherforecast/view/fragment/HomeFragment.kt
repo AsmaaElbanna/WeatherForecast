@@ -84,11 +84,10 @@ class HomeFragment : Fragment(), NetworkHandler {
         homeVM.loadLastResult(requireContext()).also {
             if (it != null) {
                 binding.weather = it
+                binding.userUnits = Constants.userUnits
                 weatherHoursAdapter.setData(it.hourly!!)
                 weatherDaysAdapter.setData(it.daily!!)
                 homeVM.lastKnownLocation = LatLng(it.lat, it.lon)
-                binding.tvTime.text = DateFormat.format("hh:mm a EE dd/MM/yyyy", it.current.dt * 1000.toLong())
-
             }
         }
 
@@ -97,10 +96,11 @@ class HomeFragment : Fragment(), NetworkHandler {
             weatherHoursAdapter.setData(it.hourly!!)
             weatherDaysAdapter.setData(it.daily!!)
             homeVM.saveAsLastResult(requireContext(), it)
+            binding.userUnits = Constants.userUnits
         })
 
         Constants.currentUnits.observe(viewLifecycleOwner, {
-            if (homeVM.weatherData.value != null){
+            if (homeVM.weatherData.value != null) {
                 homeVM.getWeather()
             }
         })

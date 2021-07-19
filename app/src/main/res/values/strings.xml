@@ -64,6 +64,10 @@
     <string name="meter_sec">Meter/sec</string>
     <string name="mile_sec">Mile/sec</string>
     <string name="uvi">UVI: %s</string>
+    <string name="todo">TODO</string>
+    <string name="details">Details</string>
+    <string name="hours">Hours</string>
+    <string name="_7_days">7-Days</string>
 
 
     <string-array name="alarm_type">

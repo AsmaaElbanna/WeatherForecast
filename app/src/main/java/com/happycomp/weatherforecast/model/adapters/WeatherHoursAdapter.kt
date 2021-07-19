@@ -5,7 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.happycomp.weatherforecast.R
 import com.happycomp.weatherforecast.databinding.ItemWeatherHoursBinding
+import com.happycomp.weatherforecast.model.enums.Units
 import com.happycomp.weatherforecast.model.pojo.Hourly
+import com.happycomp.weatherforecast.util.Constants
 import com.squareup.picasso.Picasso
 
 class WeatherHoursAdapter : RecyclerView.Adapter<WeatherHoursAdapter.ViewHolder>() {
@@ -27,15 +29,13 @@ class WeatherHoursAdapter : RecyclerView.Adapter<WeatherHoursAdapter.ViewHolder>
     override fun onBindViewHolder(holder: ViewHolder, position: Int) =
         holder.bind(hoursList[position])
 
-    override fun getItemCount(): Int {
-        return hoursList.size
-    }
+    override fun getItemCount(): Int = hoursList.size
 
     inner class ViewHolder(val binding: ItemWeatherHoursBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(currentItem: Hourly) {
             binding.weatherHour = currentItem
-            // view image
+            binding.userUnits = Constants.userUnits
             val icon = currentItem.weather.first().icon
             val uri = "http://openweathermap.org/img/wn/$icon@2x.png"
             Picasso.get().load(uri).placeholder(R.drawable.bakar).error(R.drawable.bakar)
