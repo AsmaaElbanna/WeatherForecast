@@ -18,7 +18,6 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.happycomp.weatherforecast.R
 import com.happycomp.weatherforecast.databinding.ActivityMapsBinding
-import java.io.IOException
 import java.util.*
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {

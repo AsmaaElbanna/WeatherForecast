@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import com.happycomp.weatherforecast.alarmmanager.AlarmReciever
 import com.happycomp.weatherforecast.databinding.FragmentAlertBinding
 import com.happycomp.weatherforecast.model.adapters.AlarmAdapter
-import com.happycomp.weatherforecast.model.adapters.helpers.SwipeToDelete
+import com.happycomp.weatherforecast.model.extra.SwipeToDelete
 import com.happycomp.weatherforecast.model.interfaces.SwipeListener
 import com.happycomp.weatherforecast.model.pojo.Alarm
 import com.happycomp.weatherforecast.view.activity.AlarmActivity

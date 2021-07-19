@@ -6,7 +6,7 @@ import com.happycomp.weatherforecast.model.interfaces.NetworkHandler
 import com.happycomp.weatherforecast.model.pojo.BaseWeather
 import com.happycomp.weatherforecast.model.retrofit.WeatherInterface
 import com.happycomp.weatherforecast.model.room.data.FavoritesDao
-import com.happycomp.weatherforecast.util.Constants
+import com.happycomp.weatherforecast.model.extra.Constants
 import javax.inject.Inject
 
 class FavoriteRepo @Inject constructor(

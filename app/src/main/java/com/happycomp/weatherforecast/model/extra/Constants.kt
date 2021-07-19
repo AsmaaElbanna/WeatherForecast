@@ -1,4 +1,4 @@
-package com.happycomp.weatherforecast.util
+package com.happycomp.weatherforecast.model.extra
 
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
@@ -35,9 +35,7 @@ object Constants {
         }
     }
 
-    const val EXTRA_EXACT_ALARM_TIME = "EXTRA_EXACT_ALARM_TIME"
     const val WEATHER_DB = "weatherdb"
-
     private const val METRICS = "METRICS"
     private const val VALUE = "VALUE"
 }

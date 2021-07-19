@@ -1,4 +1,4 @@
-package com.happycomp.weatherforecast.model.adapters.helpers
+package com.happycomp.weatherforecast.model.extra
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
