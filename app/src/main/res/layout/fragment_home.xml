@@ -17,12 +17,13 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#EB061927">
+        android:background="@drawable/weatherback">
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".view.fragment.HomeFragment">
+            tools:context=".view.fragment.HomeFragment"
+            android:background="@drawable/background_border">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

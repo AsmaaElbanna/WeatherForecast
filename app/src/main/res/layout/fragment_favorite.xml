@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.fragment.FavoriteFragment">
+    tools:context=".view.fragment.FavoriteFragment"
+    android:background="@drawable/weatherback">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_fav"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/background_border"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_favorite" />
 

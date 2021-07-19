@@ -56,7 +56,7 @@ class AlarmReciever : BroadcastReceiver() {
                     GlobalScope.launch(Dispatchers.Main) {
                         val weatherData = response.body()
                         alarmVM.deleteByID(alarm.id)
-                        displayNotification(weatherData!!.current.weather[0].description)
+                        displayNotification("The weather today will be ${weatherData!!.current.weather[0].description}")
                     }
                 }
             } catch (e: Exception) {
@@ -65,7 +65,6 @@ class AlarmReciever : BroadcastReceiver() {
 //                    Toast.makeText(context, "Exception: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
             }
-
         }
     }
 
