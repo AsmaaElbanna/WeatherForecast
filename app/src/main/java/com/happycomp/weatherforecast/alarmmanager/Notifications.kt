@@ -3,10 +3,12 @@ package com.happycomp.weatherforecast.alarmmanager
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.happycomp.weatherforecast.R
+import com.squareup.picasso.Picasso
 
 class Notifications(val context: Context) {
 
@@ -36,6 +38,10 @@ class Notifications(val context: Context) {
             .setContentTitle("Weather")
             .setContentText(contentText)
             .setSmallIcon(R.drawable.ic_baseline_notifications_active_24)
+            .setLargeIcon(
+                BitmapFactory.decodeResource(context.getResources(),
+                    R.drawable.clouds
+                ))
             .setAutoCancel(true)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
 
