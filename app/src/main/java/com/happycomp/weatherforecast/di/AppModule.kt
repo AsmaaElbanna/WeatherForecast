@@ -27,7 +27,7 @@ object AppModule {
         .databaseBuilder(
             application, WeatherDataBase::class.java,
             Constants.WEATHER_DB
-        ).fallbackToDestructiveMigration().build()
+        ).allowMainThreadQueries().fallbackToDestructiveMigration().build()
 
     @Provides
     @Singleton

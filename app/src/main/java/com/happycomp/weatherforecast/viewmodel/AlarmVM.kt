@@ -11,6 +11,7 @@ import com.happycomp.weatherforecast.model.enums.AlarmType
 import com.happycomp.weatherforecast.model.pojo.Alarm
 import com.happycomp.weatherforecast.model.room.data.AlarmDao
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -38,4 +39,12 @@ class AlarmVM @Inject constructor(private val alarmDao: AlarmDao): ViewModel() {
             alarmDao.deleteAlarm(alarm)
         }
     }
+
+    fun deleteByID(ID: Int){
+        GlobalScope.launch {
+            alarmDao.deleteByID(ID)
+        }
+    }
+
+    fun getAlarmByID(ID: Int): Alarm = alarmDao.getAlarmByID(ID)
 }
