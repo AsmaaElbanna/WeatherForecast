@@ -11,6 +11,7 @@ import com.happycomp.weatherforecast.R
 import com.happycomp.weatherforecast.model.pojo.BaseWeather
 import com.happycomp.weatherforecast.model.retrofit.WeatherInterface
 import com.happycomp.weatherforecast.util.Constants
+import dagger.hilt.android.AndroidEntryPoint
 import io.karn.notify.Notify
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -19,7 +20,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class AlarmReciever : BroadcastReceiver() {
 
     @Inject
@@ -30,7 +31,7 @@ class AlarmReciever : BroadcastReceiver() {
 //        buildNotification(context, title = "set exact time ", convertDate(timeInMillis))
 
             this.context=context
-         getWeather()
+            getWeather()
 
         //displayNotification("weather will be good")
 
@@ -69,12 +70,13 @@ class AlarmReciever : BroadcastReceiver() {
                 if (response.isSuccessful && response.body() != null) {
                     GlobalScope.launch(Dispatchers.Main) {
                        val weatherData = response.body()
-                        displayNotification(weatherData!!.current.weather[0].description)
+                        displayNotification("The weather today will be ${weatherData!!.current.weather[0].description}")
                     }
                 }
             } catch (e: Exception) {
-                Toast.makeText(context, "Exception", Toast.LENGTH_SHORT).show()
-
+                GlobalScope.launch(Dispatchers.Main) {
+                    Toast.makeText(context, "Exception", Toast.LENGTH_SHORT).show()
+                }
             }
 
         }
