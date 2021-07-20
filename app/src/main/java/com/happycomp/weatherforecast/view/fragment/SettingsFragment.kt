@@ -44,7 +44,7 @@ class SettingsFragment : Fragment() {
 
         }
 
-        binding.tempUnitContainer.setOnClickListener {
+        binding.layoutTemp.setOnClickListener {
             TemperatureUnit().show(requireActivity().supportFragmentManager, "Temp unit")
         }
 
