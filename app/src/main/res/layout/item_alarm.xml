@@ -66,6 +66,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:text="@{alarm.desc}"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/tvDateTime"
                 app:layout_constraintStart_toStartOf="@+id/tvDateTime"
