@@ -8,7 +8,8 @@ import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth.assertThat
 import com.happycomp.weatherforecast.extra.getOrAwaitValue
 import com.happycomp.weatherforecast.model.pojo.Alarm
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import com.happycomp.weatherforecast.model.room.data.AlarmDao
+import com.happycomp.weatherforecast.model.room.data.WeatherDataBase
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
@@ -26,13 +27,13 @@ class AlarmDaoTest {
     private lateinit var database: WeatherDataBase
     private lateinit var alarmDao: AlarmDao
 
-    private val fakeDataList = arrayListOf<Alarm>(
+    private val fakeDataList = arrayListOf(
         Alarm(
             true,
             "23/9/2021 , 03:59:00",
             18227896,
             "Rain",
-            "My trip"
+            "My trip",
         ),
         Alarm(
             false,
@@ -87,7 +88,7 @@ class AlarmDaoTest {
     @Test
     fun removePastAlarms() = runBlocking {
         alarmDao.addAlarm(fakeDataList.last())
-        alarmDao.deleteOldAlarms()
+        alarmDao.deleteAlarm(fakeDataList.last())
         val allAlarms = alarmDao.observeAllAlarms().getOrAwaitValue()
         assertThat(allAlarms).doesNotContain(fakeDataList.last())
     }

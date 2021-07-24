@@ -38,6 +38,10 @@ class FakeFavoriteRepo : FavoriteActions {
         refreshLiveData()
     }
 
+    override suspend fun updateFavorite(baseWeather: BaseWeather) {
+
+    }
+
     private fun refreshLiveData() {
         observeWeatherData.postValue(weatherData)
     }

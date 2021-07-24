@@ -11,8 +11,8 @@ data class Alarm(
     val timeMS: Long,
     val type: String,
     val desc: String,
-    val location: LatLng,
-    val address: String,
+    val location: LatLng = LatLng(30.0595581, 31.223445),
+    val address: String = "Cairo/Egypt",
     @PrimaryKey(autoGenerate = false)
     var id: Int = 0,
 )
