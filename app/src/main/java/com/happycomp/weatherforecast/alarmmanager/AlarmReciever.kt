@@ -52,7 +52,8 @@ class AlarmReciever : BroadcastReceiver() {
                     weatherInterface.getWeatherData(
                         location.latitude,
                         location.longitude,
-                        units = Units.Metric.value
+                        units = Units.Metric.value,
+                        exclude = "minutely,hourly"
                     )
                 if (response.isSuccessful && response.body() != null) {
                     GlobalScope.launch(Dispatchers.Main) {
@@ -66,7 +67,7 @@ class AlarmReciever : BroadcastReceiver() {
                             )
                         )
 
-                            displayNotification("The weather today will be ${weatherData.current.weather.first().description}")
+                            displayNotification("The weather today will be ${weatherData.daily!!.first().weather.first().description}")
                     }
                 }
             } catch (e: Exception) {
